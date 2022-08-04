@@ -1,0 +1,106 @@
+<app-header></app-header>
+<main class="main-container">
+  <div class="main-buttons">
+    <button (click)="fnAddList()">CRIAR LISTA</button>
+    <button (click)="fnSelectlist()">SELECIONAR LISTA</button>
+  </div>
+
+  <div class="main-container" *ngIf="showInputsAddItens === true">
+    <input type="text" placeholder="NOME DO ITEM">
+    <input type="text" placeholder="$">
+    <input type="number">
+    <button>ADICIONAR</button>
+  </div>
+
+  <div class="main-tag" *ngIf="showAddLista === true">
+    <input type="text" name="tag-img" placeholder="nome da lista">
+    <button (click)="fnshowTags()">ETIQUETA</button>
+  </div>
+    <div class="main-tag" *ngIf="showAddLista === true">
+      <button (click)="fnCreateShoppingCart()" class="main-tag-create-button">CRIAR</button>
+    </div>
+
+  <div class="main-tag" *ngIf="showTags === true">
+      <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/wallet-icon.png" alt="icon-pattern" (click)="tagSelect($event)" class="tagIcon">
+
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/cart-icon.png" alt="icon-marketplace" (click)="tagSelect($event)" class="tagIcon">
+
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/store-icon.png" alt="icon-shopping" (click)="tagSelect($event)" class="tagIcon">
+
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/point-of-service-icon.png" alt="icon-economy" (click)="tagSelect($event)" class="tagIcon">
+
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/checklist-icon.png" alt="icon-debts" (click)="tagSelect($event)" class="tagIcon">
+  </div>
+
+  <div class="selection-list" *ngIf="showSelectList === true">
+    <select class="select">
+      <option>MINHA LISTA-1 20/05/2022</option>
+      <option>MINHA LISTA-2 20/05/2022</option>
+      <option>MINHA LISTA-3 20/05/2022</option>
+      <option>MINHA LISTA-4 20/05/2022</option>
+    </select>
+    <button>ADICIONAR LISTA</button>
+  </div>
+
+  <table class="table" *ngIf="showTable === true">
+    <thead class="table-thead">
+      <tr class="thead-tag">
+        <th colspan="4">
+          MINHA LISTA
+        </th>
+        <th>
+          <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/checklist-icon.png">
+        </th>
+      </tr>
+      <tr>
+        <th colspan="2">NOME</th>
+        <th>VALOR</th>
+        <th colspan="2">QTD</th>
+      </tr>
+    </thead>
+
+      <tbody class="table-tbody">
+
+
+        <!--
+          CAMPO DOS ITENS
+
+          exp: <tr>
+          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
+          <td>1200</td>
+          <td><input type="checkbox"></td>
+          <td>10</td>
+        </tr>
+        -->
+      </tbody>
+
+    <tfoot class="table-tfoot">
+      <tr>
+        <th colspan="4">TOTAL DE ITENS</th>
+        <td>30</td>
+      </tr>
+      <tr>
+        <th colspan="4">VALOR TOTAL</th>
+        <td>R$ 3600</td>
+      </tr>
+
+      <tr class="tfoot-add-remove">
+        <th colspan="5">
+          <button (click)="saveShoppingCart()">SALVAR LISTA</button>
+        </th>
+      </tr>
+
+      <tr class="tfoot-add-remove">
+        <th colspan="5">
+          <button (click)="removeShoppingCart()">REMOVER LISTA</button>
+        </th>
+      </tr>
+      <tr class="tfoot-add-remove">
+        <th colspan="5">
+          <button (click)="removeSelected()">REMOVER SELECIONADOS</button>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
+</main>
+<app-footer></app-footer>

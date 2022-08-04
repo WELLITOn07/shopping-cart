@@ -1,0 +1,43 @@
+@charset "UTF-8";
+//----- IMPORTS -----//
+
+//----- ROOT -----//
+:root {
+  //-- COLORS --//
+  --colors-01: #14213d;
+  --colors-02: #fca311;
+  --colors-03: #ffffff;
+  //-- FONTS --//
+};
+
+//----- RESET -----//
+* {
+  margin: 0px;
+  padding: 0px;
+};
+a {
+  color: #ffffff;
+  text-decoration: none;
+};
+a:hover {
+  color: #fca311;
+}
+//----- BODY -----//
+body {
+  box-sizing: border-box;
+  padding: 10px;
+};
+//----- HEADER ----//
+.footer-container {
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  height: auto;
+  margin: auto;
+  background-color: #14213d;
+  padding: 10px;
+};
+.footer-container p {
+  padding-top: 10px;
+  color: #ffffff;
+};

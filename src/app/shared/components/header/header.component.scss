@@ -1,0 +1,55 @@
+@charset "UTF-8";
+//----- IMPORTS -----//
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+//----- RESET -----//
+* {
+  margin: 0px;
+  padding: 0px;
+};
+//----- BODY -----//
+body {
+  box-sizing: border-box;
+  padding: 10px;
+};
+//----- HEADER ----//
+.header-container {
+  max-width: 800px;
+  height: auto;
+  margin: auto;
+  background-color: #14213d;
+  padding: 10px;
+};
+.infos-div {
+  padding: 40px;
+};
+.infos-div h1 {
+  text-align: center;
+  color: #fca311;
+  font-size: 3em;
+  font-family: 'Lobster', cursive;
+  text-shadow: 1px 1px 1px black;
+};
+.infos-div p {
+  text-align: center;
+  color: #ffffff;
+};
+//----- NAV -----//
+.nav-container ul {
+  background-color: #395185a1;
+  display: flex;
+  gap: 10px;
+  border-style: double;
+};
+.nav-container li {
+  list-style: none;
+  color: #fca311;
+  cursor: pointer;
+  padding: 5px;
+};
+.nav-container li:hover {
+  color: #ffffff;
+  transition: 0.3s;
+  text-shadow: 1px #ffffff;
+  text-decoration: underline;
+};
+
