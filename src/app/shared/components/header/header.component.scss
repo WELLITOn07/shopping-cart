@@ -36,7 +36,7 @@ body {
 //----- NAV -----//
 .nav-container {
   position: fixed;
-  margin-top: -40px;
+  margin-top: -45px;
 };
 .nav-container ul {
   background-color: #395185a1;
@@ -48,7 +48,7 @@ body {
   list-style: none;
   color: #fca311;
   cursor: pointer;
-  padding: 5px;
+  padding: 10px;
 };
 .nav-container li:hover {
   color: #ffffff;
@@ -64,7 +64,7 @@ body {
 @media (max-width: 600px) {
   #btn-mobile {
     display: block;
-    padding: 5px;
+    padding: 4px;
   }
   #btn-mobile:hover {
     cursor: pointer;
@@ -77,7 +77,7 @@ body {
     z-index: 1000;
     flex-direction: column;
     background-color: #14213d;
-    top: 50px;
+    top: 55px;
     transition: 1s;
     font-size: 0px;
     left: -120px;
@@ -95,9 +95,9 @@ body {
     transition: .4s;
   };
   .nav-container.active #ul-menu {
-    left: 0px;
+    left: 50px;
     background-color: #14213d;
-    font-size: 1em;
+    font-size: 1.3em;
   }
 };
 
