@@ -13,10 +13,6 @@ button {
   font-family: 'Ubuntu', sans-serif;
   width: 100%;
 };
-input {
-  background-color: whitesmoke;
-  color: #1d2c4df1;
-};
 //----- BODY -----//
 body {
   box-sizing: border-box;
@@ -131,6 +127,8 @@ body {
   margin: auto;
 };
 .main-tag input {
+  background-color: aliceblue;
+  color: #1d2c4df1;
   text-align: center;
   padding: 5px;
 };
