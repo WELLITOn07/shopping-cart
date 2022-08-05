@@ -37,6 +37,7 @@ body {
 .nav-container {
   position: fixed;
   margin-top: -45px;
+  z-index: 2;
 };
 .nav-container ul {
   background-color: #395185a1;
@@ -49,6 +50,7 @@ body {
   color: #fca311;
   cursor: pointer;
   padding: 10px;
+  font-size: 1.2em;
 };
 .nav-container li:hover {
   color: #ffffff;
@@ -74,7 +76,7 @@ body {
   #ul-menu {
     display: flex;
     position: absolute;
-    z-index: 1000;
+    z-index: 3;
     flex-direction: column;
     background-color: #14213d;
     top: 55px;
