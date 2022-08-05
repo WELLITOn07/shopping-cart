@@ -33,6 +33,8 @@ body {
 .main-container input {
   text-align: center;
   padding: 5px;
+  background-color: aliceblue;
+  color: #1d2c4df1;
 };
 .main-container button {
   margin-top: 7px;
@@ -175,6 +177,7 @@ body {
   .main-container .fixed {
     top: -1px;
     position: sticky;
+    background-color: #1d2c4db4;
   }
 };
 
