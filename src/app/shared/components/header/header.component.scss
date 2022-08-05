@@ -40,7 +40,7 @@ body {
   z-index: 2;
 };
 .nav-container ul {
-  background-color: #395185a1;
+  background-color: #14213d;
   display: flex;
   gap: 10px;
   border-style: double;
@@ -97,6 +97,7 @@ body {
     transition: .4s;
   };
   .nav-container.active #ul-menu {
+    background-color: #395185a1;
     left: 50px;
     background-color: #14213d;
     font-size: 1.3em;
