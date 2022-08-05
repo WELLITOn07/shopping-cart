@@ -34,6 +34,10 @@ body {
   color: #ffffff;
 };
 //----- NAV -----//
+.nav-container {
+  position: fixed;
+  margin-top: -40px;
+};
 .nav-container ul {
   background-color: #395185a1;
   display: flex;
@@ -70,14 +74,13 @@ body {
   #ul-menu {
     display: flex;
     position: absolute;
-    width: 20%;
     z-index: 1000;
     flex-direction: column;
     background-color: #14213d;
-    top: 288px;
+    top: 50px;
     transition: 1s;
     font-size: 0px;
-    left: -100px;
+    left: -120px;
   }
   .nav-container {
     display: flex;
@@ -92,7 +95,7 @@ body {
     transition: .4s;
   };
   .nav-container.active #ul-menu {
-    left: 10px;
+    left: 0px;
     background-color: #14213d;
     font-size: 1em;
   }
