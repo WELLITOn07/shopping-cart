@@ -1,7 +1,8 @@
 <app-header></app-header>
 <main class="main-container">
   <div class="main-buttons">
-    <button (click)="fnAddList()">CRIAR LISTA</button>
+    <button (click)="fnAddList()" *ngIf="showButtonCreateList === true">CRIAR LISTA</button>
+    <button (click)="fnAddList()" *ngIf="showButtonEditList === true">EDITAR LISTA</button>
     <button (click)="fnSelectlist()">SELECIONAR LISTA</button>
   </div>
 

@@ -14,6 +14,8 @@ export class ShoppingCartComponent implements OnInit {
   showSelectList: boolean = false;
   showTable: boolean = false;
   showInputsAddItens: boolean = false;
+  showButtonCreateList: boolean = true;
+  showButtonEditList: boolean = false;
   theTagSelect: string = '';
   tagsList: Array<string> = ['varied', 'marketplace', 'shopping'];
 
@@ -66,18 +68,24 @@ export class ShoppingCartComponent implements OnInit {
     this.showTags = false;
     this.showInputsAddItens = true;
     this.showTable = true;
+    this.showButtonCreateList = false;
+    this.showButtonEditList = true;
   };
 
   saveShoppingCart () {
     window.alert('Lista salva com sucesso!')
     this.showTable = false;
     this.showInputsAddItens = false;
+    this.showButtonCreateList = true;
+    this.showButtonEditList = false;
   }
 
   removeShoppingCart() {
     window.alert('Lista removida com sucesso!')
     this.showTable = false;
     this.showInputsAddItens = false;
+    this.showButtonCreateList = true;
+    this.showButtonEditList = false;
   };
 
   removeSelected() {
