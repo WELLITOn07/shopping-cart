@@ -94,6 +94,12 @@ body {
   .tfoot-add-remove button{
     padding: 7px;
     width: 100%;
+    padding: 10px;
+    background-color: #1d2c4df1;
+    font-weight: bolder;
+    border: 0px;
+    border-radius: 10px;
+    color: aliceblue;
 };
   .tfoot-add-remove button:hover {
     background-color: #394e7aec;
@@ -110,12 +116,15 @@ body {
 };
 .main-buttons button {
   padding: 10px;
-  box-shadow: 1px 1px 1px #1d2c4df1;
+  background-color: #1d2c4df1;
+  font-weight: bolder;
+  border: 0px;
+  border-radius: 10px;
+  color: aliceblue;
 };
 .main-buttons button:hover {
-  background-color: #91a0bb49;
-  color: aliceblue;
-  font-weight: bold;
+  color: #1d2c4df1;
+  background-color: #fca311;
   cursor: pointer;
 };
 .main-tag {
@@ -135,12 +144,16 @@ body {
   padding: 5px;
 };
 .main-tag  button {
-  padding: 5px;
+  padding: 10px;
+  background-color: #1d2c4df1;
+  font-weight: bolder;
+  border: 0px;
+  border-radius: 10px;
+  color: aliceblue;
 };
 .main-tag button:hover {
-  background-color: #91a0bb49;
-  color: aliceblue;
-  font-weight: bold;
+  color: #1d2c4df1;
+  background-color: #fca311;
   cursor: pointer;
 };
 .main-tag img:hover {

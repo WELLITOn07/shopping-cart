@@ -51,10 +51,11 @@ body {
   cursor: pointer;
   padding: 10px;
   font-size: 1.2em;
+  text-decoration: none;
 };
 .nav-container li:hover {
   color: #ffffff;
-  transition: 0.3s;
+  transition: 0.6s;
   text-shadow: 1px #ffffff;
   text-decoration: underline;
 };

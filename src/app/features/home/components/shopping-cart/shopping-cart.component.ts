@@ -55,7 +55,7 @@ export class ShoppingCartComponent implements OnInit {
   };
   tagSelect (event: any) {
     const tagIcon:HTMLImageElement = event.target;
-    const allTags:NodeListOf<Element> | undefined = document.querySelectorAll('.tagIcon');
+    const allTags:NodeListOf<Element> = document.querySelectorAll('.tagIcon');
 
     allTags.forEach(tag => {
       tag.classList.remove('tagSelect');
@@ -78,6 +78,7 @@ export class ShoppingCartComponent implements OnInit {
     this.showInputsAddItens = false;
     this.showButtonCreateList = true;
     this.showButtonEditList = false;
+    this.showSelectList = false;
   }
 
   removeShoppingCart() {
@@ -86,6 +87,7 @@ export class ShoppingCartComponent implements OnInit {
     this.showInputsAddItens = false;
     this.showButtonCreateList = true;
     this.showButtonEditList = false;
+    this.showSelectList = false;
   };
 
   removeSelected() {

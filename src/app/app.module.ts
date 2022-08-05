@@ -7,8 +7,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import  localePt from  '@angular/common/locales/pt';
 import { HomeModule } from './features/home/home.module';
-import { LoginModule } from './features/login/login.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginModule } from './features/login/login.module'
 registerLocaleData(localePt);
 
 @NgModule({
@@ -20,7 +19,6 @@ registerLocaleData(localePt);
     AppRoutingModule,
     HomeModule,
     LoginModule,
-    BrowserAnimationsModule
   ],
   providers: [
     {
