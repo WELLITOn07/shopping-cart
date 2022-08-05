@@ -158,6 +158,12 @@ body {
 .select {
   margin: 5px;
 };
+.selection-list option {
+  color: aliceblue;
+  background-color: #1d2c4df1;
+  border: 1px solid #1d2c4df1;
+  box-shadow: 1px 1px 1px #1d2c4df1;
+}
 
 //----- @MEDIA -----//
 @media (max-width: 600px) {
