@@ -13,6 +13,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toggleMenu (event: any) {
+    const nav = document.querySelector('.nav-container');
+    nav?.classList.toggle('active');
+  };
+
   navegateByUrl (url: string) {
     this.router.navigateByUrl(url)
   };

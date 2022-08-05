@@ -5,9 +5,10 @@
     <p>Adicione lista de compras e tenha um controle de seus gastos</p>
   </div>
   <nav class="nav-container">
-    <ul>
-      <li (click)="navegateByUrl('home')">Carrinho de compras</li>
-      <li (click)="navegateByUrl('controleDeGastos')">Controle de gastos</li>
+    <button id="btn-mobile" (click)="toggleMenu($event)"><img src="https://icons.iconarchive.com/icons/icons8/windows-8/16/Very-Basic-Menu-icon.png"></button>
+    <ul id="ul-menu">
+      <li (click)="navegateByUrl('home')">Carrinho</li>
+      <li (click)="navegateByUrl('controleDeGastos')">Controle</li>
       <li (click)="navegateByUrl('login')">Login</li>
       <li>Sair</li>
     </ul>

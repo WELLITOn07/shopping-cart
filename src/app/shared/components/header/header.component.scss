@@ -52,4 +52,50 @@ body {
   text-shadow: 1px #ffffff;
   text-decoration: underline;
 };
+#btn-mobile {
+  display: none;
+};
+
+//----- @MEDIA -----//
+@media (max-width: 600px) {
+  #btn-mobile {
+    display: block;
+    padding: 5px;
+  }
+  #btn-mobile:hover {
+    cursor: pointer;
+    background-color: #395185a1;
+    color: aliceblue;
+    transition: 0.2s;
+  }
+  #ul-menu {
+    display: flex;
+    position: absolute;
+    width: 20%;
+    z-index: 1000;
+    flex-direction: column;
+    background-color: #14213d;
+    top: 288px;
+    transition: 1s;
+    font-size: 0px;
+    left: -100px;
+  }
+  .nav-container {
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    background-color: #395185a1;
+    display: flex;
+    border-style: double;
+  }
+  .nav-container.active img {
+    transform: rotate(45deg);
+    transition: .4s;
+  };
+  .nav-container.active #ul-menu {
+    left: 10px;
+    background-color: #14213d;
+    font-size: 1em;
+  }
+};
 
