@@ -170,5 +170,13 @@ body {
   box-shadow: 1px 1px 1px #1d2c4df1;
 };
 
+//----- @MEDIA -----//
+@media (max-width: 600px) {
+  .main-container .fixed {
+    top: -1px;
+    position: sticky;
+  }
+};
+
 
 
