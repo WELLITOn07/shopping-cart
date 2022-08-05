@@ -127,6 +127,7 @@ body {
   margin: auto;
 };
 .main-tag input {
+  z-index: 1000;
   background-color: aliceblue;
   color: #1d2c4df1;
   text-align: center;
@@ -148,7 +149,7 @@ body {
   cursor: pointer;
 };
 .main-tag-create-button {
-  width: 267px;
+  width: 250px;
 };
 .tagSelect {
   border: 2px solid rgba(0, 128, 0, 0.616);
