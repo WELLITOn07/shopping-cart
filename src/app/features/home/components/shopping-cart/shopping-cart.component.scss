@@ -127,6 +127,7 @@ body {
   margin: auto;
 };
 .main-tag input {
+  background-color: aliceblue;
   color: #1d2c4df1;
   text-align: center;
   padding: 5px;
@@ -147,7 +148,7 @@ body {
   cursor: pointer;
 };
 .main-tag-create-button {
-  width: 250px;
+  width: 267px;
 };
 .tagSelect {
   border: 2px solid rgba(0, 128, 0, 0.616);
@@ -173,11 +174,6 @@ body {
   background-color: aliceblue;
   border: 1px solid #1d2c4df1;
   box-shadow: 1px 1px 1px #1d2c4df1;
-};
-
-//----- @MEDIA -----//
-@media (max-width: 600px) {
-
 };
 
 
