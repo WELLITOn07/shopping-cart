@@ -7,14 +7,14 @@
   </div>
 
   <div class="main-container" *ngIf="showInputsAddItens === true">
-    <input type="text" placeholder="nome DO ITEM" class="inputs-add-item">
-    <input type="text" placeholder="$" class="inputs-add-item">
-    <input type="number" placeholder="quantidade" class="inputs-add-item">
+    <input type="text" placeholder="nome do item" class="inputs-name-item">
+    <input type="text" placeholder="$" class="inputs-value-item">
+    <input type="number" placeholder="quantidade" class="inputs-amount-item">
     <button>ADICIONAR</button>
   </div>
 
   <div class="main-tag" *ngIf="showAddLista === true">
-    <input type="text" name="tag-img" placeholder="nome da lista">
+    <input type="text" placeholder="nome da lista">
     <button (click)="fnshowTags()">ETIQUETA</button>
   </div>
     <div class="main-tag" *ngIf="showAddLista === true">
