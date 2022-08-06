@@ -43,6 +43,18 @@ body {
   text-align: center;
   padding: 5px;
 };
+.main-container .button {
+  align-items: center;
+  border: 0px;
+  background-color: #ffffff00;
+  transform: rotate(180deg);
+  width: 80px;
+};
+.main-container .button:hover {
+  background-color: #ffffff00;
+  transition: .6s;
+  transform: rotate(0deg);
+};
 .main-container button:hover {
   background-color: #317018c7;
   color: aliceblue;
