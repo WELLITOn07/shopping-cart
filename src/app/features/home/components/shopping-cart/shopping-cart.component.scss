@@ -162,9 +162,19 @@ body {
   font-weight: bold;
   cursor: pointer;
 };
+#theTagNameSelect {
+  background-color: #91a0bb49;
+  color: #1d2c4df1;
+  font-style: italic;
+};
 .main-tag-create-button {
   width: 250px;
+  opacity: 20%;
 };
+.main-tag-create-button-active {
+  width: 250px;
+  opacity: 100%;
+}
 .tagSelect {
   border: 2px solid rgba(0, 128, 0, 0.616);
 };

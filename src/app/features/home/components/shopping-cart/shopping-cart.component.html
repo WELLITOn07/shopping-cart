@@ -1,56 +1,64 @@
 <app-header></app-header>
 <main class="main-container">
   <div class="main-buttons">
-    <button (click)="fnAddList()" *ngIf="showButtonCreateList === true">CRIAR LISTA</button>
-    <button (click)="fnAddList()" *ngIf="showButtonEditList === true">EDITAR LISTA</button>
+    <button (click)="fnAddList()" *ngIf="showButtonCreateList ">CRIAR LISTA</button>
+    <button (click)="fnEditList()" *ngIf="showButtonEditList ">EDITAR LISTA</button>
     <button (click)="fnSelectlist()">SELECIONAR LISTA</button>
   </div>
 
-  <div class="main-container fixed" *ngIf="showInputsAddItens === true">
+  <div class="main-container fixed" *ngIf="showInputsAddItens">
     <input type="text" placeholder="nome do item" class="inputs-name-item">
     <input type="number" placeholder="$" class="inputs-value-item">
     <input type="number" placeholder="quantidade" class="inputs-amount-item">
     <button>ADICIONAR</button>
   </div>
 
-  <div class="main-tag" *ngIf="showAddLista === true">
-    <input type="text" placeholder="nome da lista">
+  <form class="main-tag" *ngIf="showAddLista" [formGroup]="createListForm">
+    <input type="text" placeholder="nome da lista" formControlName="name">
     <button (click)="fnshowTags()">ETIQUETA</button>
-  </div>
-    <div class="main-tag" *ngIf="showAddLista === true">
-      <button (click)="fnCreateShoppingCart()" class="main-tag-create-button">CRIAR</button>
+  </form>
+    <div class="main-tag" *ngIf="showAddLista">
+      <button (click)="fnCreateShoppingCart()" [ngClass]="{'main-tag-create-button': createListForm.invalid, 'main-tag-create-button-active': !createListForm.invalid}" type="submit" [disabled]="createListForm.invalid">{{ createListForm.invalid ? 'ESCOLHA UM NOME' : 'CRIAR LISTA' }}</button>
     </div>
 
-  <div class="main-tag" *ngIf="showTags === true">
-      <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/wallet-icon.png" alt="icon-pattern" (click)="tagSelect($event)" class="tagIcon">
+  <div class="main-tag" *ngIf="showTags">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/cart-icon.png" alt="icon-marketplace" (click)="tagSelect($event)" class="tagIcon">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/wallet-icon.png" alt="icon-pattern" (click)="tagSelect($event)" class="tagIcon wallet">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/store-icon.png" alt="icon-shopping" (click)="tagSelect($event)" class="tagIcon">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/cart-icon.png" alt="icon-marketplace" (click)="tagSelect($event)" class="tagIcon cart">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/point-of-service-icon.png" alt="icon-economy" (click)="tagSelect($event)" class="tagIcon">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/store-icon.png" alt="icon-shopping" (click)="tagSelect($event)" class="tagIcon store">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/checklist-icon.png" alt="icon-debts" (click)="tagSelect($event)" class="tagIcon">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/point-of-service-icon.png" alt="icon-economy" (click)="tagSelect($event)" class="tagIcon service">
+
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/checklist-icon.png" alt="icon-debts" (click)="tagSelect($event)" class="tagIcon checklist">
+  </div>
+  <div class="main-tag" *ngIf="showTags && !showTable">
+    <p>{{ theTagNameSelect }}</p>
   </div>
 
   <div class="selection-list" *ngIf="showSelectList === true">
     <select class="select">
-      <option>MINHA LISTA-1 20/05/2022</option>
-      <option>MINHA LISTA-2 20/05/2022</option>
-      <option>MINHA LISTA-3 20/05/2022</option>
-      <option>MINHA LISTA-4 20/05/2022</option>
+      <!--<option>MINHA LISTA-1 20/05/2022</option>-->
     </select>
     <button>ADICIONAR LISTA</button>
   </div>
 
-  <table class="table" *ngIf="showTable === true">
-    <thead class="table-thead">
-      <tr class="thead-tag">
+  <table class="table" *ngIf="showTable">
+    <thead class="table-thead" [formGroup]="createListForm">
+      <tr class="thead-tag" *ngIf="showTableNameAndTag">
         <th colspan="4">
-          MINHA LISTA
+          <!--NOME DA LISTA-->
+          {{ createListForm.value.name }}
         </th>
         <th>
-          <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/checklist-icon.png">
+          <!--IMG TAG-->
+          <img src="{{ theTagUrlSelect }}">
+        </th>
+      </tr>
+      <tr>
+        <th colspan="5" id="theTagNameSelect">
+          {{theTagNameSelect}}
         </th>
       </tr>
       <tr>
@@ -61,8 +69,6 @@
     </thead>
 
       <tbody class="table-tbody">
-
-
         <!--
           CAMPO DOS ITENS
 
@@ -73,132 +79,6 @@
           <td>10</td>
         </tr>
         -->
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
-          <td><input type="checkbox"></td>
-          <td>10</td>
-        </tr>
       </tbody>
 
     <tfoot class="table-tfoot">
@@ -211,7 +91,7 @@
         <td>R$ 3600</td>
       </tr>
 
-      <tr class="tfoot-add-remove">
+      <tr class="tfoot-add-remove" *ngIf="showInputsAddItens">
         <th colspan="5">
           <button (click)="saveShoppingCart()">SALVAR LISTA</button>
         </th>
