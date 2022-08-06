@@ -43,24 +43,27 @@ body {
   text-align: center;
   padding: 5px;
 };
-.main-container .button {
-  align-items: center;
-  border: 0px;
-  background-color: #ffffff00;
-  transform: rotate(180deg);
-  width: 80px;
-};
-.main-container .button:hover {
-  background-color: #ffffff00;
-  transition: .6s;
-  transform: rotate(0deg);
-};
 .main-container button:hover {
   background-color: #317018c7;
   color: aliceblue;
   font-weight: bold;
   cursor: pointer;
 };
+.main-container .buttonAdd {
+  align-items: center;
+  border: 0px;
+  background-color: #ffffff00;
+  transform: rotate(180deg);
+  width: 80px;
+};
+.main-container .buttonAdd:hover {
+  background-color: #ffffff00;
+  transition: .6s;
+  transform: rotate(0deg);
+};
+.main-container .fixed {
+  background-color: rgba(240, 248, 255, 0);
+}
 //----- TABLE -----//
 .table {
   width: 100%;
@@ -220,7 +223,6 @@ body {
   .main-container .fixed {
     top: -1px;
     position: sticky;
-    background-color: #1d2c4d8f;
     z-index: 1;
   }
 };
