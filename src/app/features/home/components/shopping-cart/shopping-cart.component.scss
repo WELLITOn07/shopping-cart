@@ -25,13 +25,15 @@ body {
   height: auto;
   margin: auto;
   padding: 10px;
+  background-color: #1d2c4df1;
   display: flex;
   flex-direction: column;
   justify-content: center;
 };
 .main-container input {
   text-align: center;
-  padding: 10px;
+  padding: 5px;
+  background-color: aliceblue;
   color: #1d2c4df1;
   font-size: 1.3em;
   font-weight: bold;
@@ -44,6 +46,7 @@ body {
 .main-container .button {
   align-items: center;
   border: 0px;
+  background-color: #ffffff00;
   transform: rotate(180deg);
   width: 80px;
 };
