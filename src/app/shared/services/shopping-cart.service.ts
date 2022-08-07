@@ -7,13 +7,17 @@ import { ShoppingCart } from '../models/shoppingCart.model';
 export class ShoppingCartService {
 
   shoppingCartList: Array<ShoppingCart> = [
-
   ];
+  nameList = '';
 
   constructor () { }
 
+  CreateShoppingCart (shoppingCart: ShoppingCart) {
+    this.shoppingCartList.push(shoppingCart);
+  };
+
   getShoppingCartList () {
-    return this.shoppingCartList
+    return this.shoppingCartList;
   };
 
 }

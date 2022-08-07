@@ -35,7 +35,6 @@ body {
 };
 //----- NAV -----//
 .nav-container {
-  position: fixed;
   margin-top: -45px;
   z-index: 2;
 };
@@ -86,6 +85,7 @@ body {
     left: -120px;
   }
   .nav-container {
+    position: fixed;
     display: flex;
     padding: 5px;
     justify-content: center;

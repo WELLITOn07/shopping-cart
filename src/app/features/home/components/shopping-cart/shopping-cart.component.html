@@ -1,17 +1,20 @@
 <app-header></app-header>
 <main class="main-container">
   <div class="main-buttons">
-    <button (click)="fnAddList()" *ngIf="showButtonCreateList ">CRIAR LISTA</button>
-    <button (click)="fnEditList()" *ngIf="showButtonEditList ">EDITAR LISTA</button>
+    <button (click)="fnAddList()" *ngIf="showButtonCreateList">CRIAR LISTA</button>
+    <button (click)="fnEditList()" *ngIf="showButtonEditList">EDITAR LISTA</button>
     <button (click)="fnSelectlist()">SELECIONAR LISTA</button>
   </div>
 
-  <div class="main-container fixed" *ngIf="showInputsAddItens">
-    <input type="text" placeholder="nome do item" class="inputs-name-item">
-    <input type="number" placeholder="$" class="inputs-value-item">
-    <input type="number" placeholder="quantidade" class="inputs-amount-item">
-    <button class="main-container buttonAdd"><img src="https://icons.iconarchive.com/icons/iconshow/button-design-pack/64/02-Basket-icon.png"></button>
-  </div>
+  <form class="main-container fixed" *ngIf="showInputsAddItens" [formGroup]="createItensForm"  [ngClass]="{'inputsCompleteItems': createItensForm.value.nameItem, 'inputsNotCompleteItems': !createItensForm.value.nameItem}">
+    <input type="text" placeholder="nome do item" class="inputs-name-item" formControlName="nameItem">
+
+    <input type="number" placeholder="$" class="inputs-value-item" formControlName="valueItem">
+
+    <input type="number" placeholder="quantidade" class="inputs-amount-item" formControlName="amountItem">
+
+    <button class="main-container buttonAdd" type="submit" [disabled]="createItensForm.invalid" (click)="fnAddItensCart()"><img src="https://icons.iconarchive.com/icons/custom-icon-design/flatastic-4/48/Shopping-cart-accept-icon.png" class="buttonAddItem"></button>
+  </form>
 
   <form class="main-tag" *ngIf="showAddLista" [formGroup]="createListForm">
     <input type="text" placeholder="nome da lista" formControlName="name">
@@ -68,27 +71,23 @@
       </tr>
     </thead>
 
-      <tbody class="table-tbody">
-        <!--
-          CAMPO DOS ITENS
-
-          exp: <tr>
-          <td colspan="2">NOME DO PRODUTO NOME DO PRODUTO</td>
-          <td>1200</td>
+      <tbody class="tableTbody">
+          <tr *ngFor="let item of shoppingCartItens">
+          <td colspan="2">{{ item.nameItem }}</td>
+          <td>{{ item.valueItem | currency:'BRL':true:'1.2'}}</td>
           <td><input type="checkbox"></td>
-          <td>10</td>
+          <td>{{ item.amountItem }}</td>
         </tr>
-        -->
       </tbody>
 
     <tfoot class="table-tfoot">
       <tr>
         <th colspan="4">TOTAL DE ITENS</th>
-        <td>30</td>
+        <td></td>
       </tr>
       <tr>
         <th colspan="4">VALOR TOTAL</th>
-        <td>R$ 3600</td>
+        <td></td>
       </tr>
 
       <tr class="tfoot-add-remove" *ngIf="showInputsAddItens">

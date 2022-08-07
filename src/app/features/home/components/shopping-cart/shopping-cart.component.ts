@@ -2,6 +2,8 @@ import { leadingComment } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { elementAt } from 'rxjs';
+import { ShoppingCart } from 'src/app/shared/models/shoppingCart.model';
+import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -10,6 +12,7 @@ import { elementAt } from 'rxjs';
 })
 export class ShoppingCartComponent implements OnInit {
 
+  //----- VARIAVEIS -----//
   showTableNameAndTag = true;
   showAddLista: boolean = false;
   showTags: boolean = false;
@@ -21,11 +24,25 @@ export class ShoppingCartComponent implements OnInit {
   theTagUrlSelect: string =  '';
   theTagNameSelect: string = '';
 
-  createListForm = new FormGroup ({
-    name: new FormControl('', [Validators.required]),
+  shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.getShoppingCartList();
+
+  //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
+    createListForm = new FormGroup ({
+    name: new FormControl({ nonNullable: true, validators: [Validators.required]})
   });
 
-  constructor() { }
+
+
+  //----- FORM P/ MENU DE CRIAR ITENS -----//
+  createItensForm = new FormGroup ({
+    nameItem: new FormControl('',{ nonNullable: true, validators: [Validators.required]}),
+    valueItem: new FormControl(0,{ nonNullable: true, validators: [Validators.required] }),
+    amountItem: new FormControl(1,{ nonNullable: true, validators: [Validators.required]}),
+  });
+
+  //----- FUNÇÕES P/ MOSTRAR E ESCONDER MENUS (*ngIf)-----//
+
+  constructor(private shoppingCartService: ShoppingCartService) { }
 
   ngOnInit(): void {
   }
@@ -52,7 +69,7 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.showAddLista = false;
     }
-  }
+  };
 
   fnSelectlist () {
     this.showAddLista = false;
@@ -72,6 +89,53 @@ export class ShoppingCartComponent implements OnInit {
       this.showTags = false;
     }
   };
+
+  fnCreateShoppingCart () {
+    this.showTableNameAndTag = true;
+    this.showAddLista = false;
+    this.showTags = false;
+    this.showInputsAddItens = true;
+    this.showTable = true;
+    this.showButtonCreateList = false;
+    this.showButtonEditList = true;
+  };
+
+
+  //----- FUNÇÃO P/ ADICIONAR ITENS -----//
+  fnAddItensCart () {
+    const itensShoppingCart = this.createItensForm.value;
+    //this.shoppingCartService.CreateShoppingCart(itensShoppingCart);
+  };
+  //----- FUNÇÃO P/ SALVAR LISTA -----//
+
+  saveShoppingCart () {
+    window.alert('Lista salva com sucesso!')
+    this.showTable = false;
+    this.showInputsAddItens = false;
+    this.showButtonCreateList = true;
+    this.showButtonEditList = false;
+    this.showSelectList = false;
+  }
+
+  //----- FUNÇÃO P/ REMOVER LISTA -----//
+
+  removeShoppingCart() {
+    window.alert('Lista removida com sucesso!')
+    this.showTable = false;
+    this.showInputsAddItens = false;
+    this.showButtonCreateList = true;
+    this.showButtonEditList = false;
+    this.showSelectList = false;
+  };
+
+  //----- FUNÇÃO P/ REMOVER ITENS SELECIONADOS -----//
+
+  removeSelected() {
+
+  };
+
+  //----- FUNÇÃO P/ ADICIONAR TAG NO CARRINHO
+
   tagSelect (event: any) {
     const tagIcon:HTMLImageElement = event.target;
     const allTags:NodeListOf<Element> = document.querySelectorAll('.tagIcon');
@@ -107,35 +171,5 @@ export class ShoppingCartComponent implements OnInit {
     });
   };
 
-  fnCreateShoppingCart () {
-    this.showTableNameAndTag = true;
-    this.showAddLista = false;
-    this.showTags = false;
-    this.showInputsAddItens = true;
-    this.showTable = true;
-    this.showButtonCreateList = false;
-    this.showButtonEditList = true;
-  };
 
-  saveShoppingCart () {
-    window.alert('Lista salva com sucesso!')
-    this.showTable = false;
-    this.showInputsAddItens = false;
-    this.showButtonCreateList = true;
-    this.showButtonEditList = false;
-    this.showSelectList = false;
-  }
-
-  removeShoppingCart() {
-    window.alert('Lista removida com sucesso!')
-    this.showTable = false;
-    this.showInputsAddItens = false;
-    this.showButtonCreateList = true;
-    this.showButtonEditList = false;
-    this.showSelectList = false;
-  };
-
-  removeSelected() {
-
-  }
-}
+}//end

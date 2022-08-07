@@ -53,17 +53,19 @@ body {
   align-items: center;
   border: 0px;
   background-color: #ffffff00;
-  transform: rotate(180deg);
   width: 80px;
 };
 .main-container .buttonAdd:hover {
   background-color: #ffffff00;
   transition: .6s;
-  transform: rotate(0deg);
+  transform: rotate3d(1, 1, 1, 30deg)
 };
 .main-container .fixed {
   background-color: rgba(240, 248, 255, 0);
-}
+};
+.inputs-name-item {
+  text-transform: uppercase;
+};
 //----- TABLE -----//
 .table {
   width: 100%;
@@ -78,19 +80,19 @@ body {
   color: #1d2c4df1;
   padding: 5px;
   font-family: 'Bree Serif', serif;
-  }
-  .table-tbody {
+  };
+  .tableTbody {
     height: 250px;
-  }
-  .table-tbody td {
-    border: 1px solid #1d2c4df1;
     text-align: center;
-    padding: 5px;
     color: aliceblue;
-  }
-  .table-tbody tr:nth-child(odd) {
+  };
+  .tableTbody td {
+    border: 1px solid #1d2c4df1;
+    padding: 5px;
+  };
+  .tableTbody tr:nth-child(odd) {
     background-color:  #395185ee;
-  }
+  };
   .table-tfoot th {
     border: 1px solid #1d2c4df1;
     text-align: center;
@@ -217,7 +219,12 @@ body {
   border: 1px solid #1d2c4df1;
   box-shadow: 1px 1px 1px #1d2c4df1;
 };
-
+.inputsCompleteItems {
+  opacity: 100%;
+};
+.inputsNotCompleteItems {
+  opacity: 30%;
+};
 //----- @MEDIA -----//
 @media (max-width: 600px) {
   .main-container .fixed {
