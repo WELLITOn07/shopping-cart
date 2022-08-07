@@ -35,7 +35,7 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FORM P/ MENU DE CRIAR ITENS -----//
   createItensForm = new FormGroup ({
-    nameItem: new FormControl('',{ nonNullable: true, validators: [Validators.required]}),
+    nameItem: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
     valueItem: new FormControl(0,{ nonNullable: true, validators: [Validators.required] }),
     amountItem: new FormControl(1,{ nonNullable: true, validators: [Validators.required]}),
   });
@@ -104,9 +104,7 @@ export class ShoppingCartComponent implements OnInit {
   //----- FUNÇÃO P/ ADICIONAR ITENS -----//
   fnAddItensCart () {
     const itensShoppingCart = this.createItensForm.value;
-    //this.shoppingCartService.CreateShoppingCart(itensShoppingCart);
-    const Array: ShoppingCart = {nameItem: 'Welliton', valueItem: 1500, amountItem: 10};
-    this.shoppingCartService.CreateShoppingCart(Array);
+    this.shoppingCartService.CreateShoppingCart(itensShoppingCart);
   };
   //----- FUNÇÃO P/ SALVAR LISTA -----//
 
