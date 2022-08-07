@@ -105,6 +105,8 @@ export class ShoppingCartComponent implements OnInit {
   fnAddItensCart () {
     const itensShoppingCart = this.createItensForm.value;
     //this.shoppingCartService.CreateShoppingCart(itensShoppingCart);
+    const Array: ShoppingCart = {nameItem: 'Welliton', valueItem: 1500, amountItem: 10};
+    this.shoppingCartService.CreateShoppingCart(Array);
   };
   //----- FUNÇÃO P/ SALVAR LISTA -----//
 
