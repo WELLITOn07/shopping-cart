@@ -18,6 +18,14 @@ body {
   box-sizing: border-box;
   padding: 5px;
 };
+label {
+  color: #1d2c4df1;
+  font-style: italic;
+  z-index: 1;
+  margin-bottom: -22px;
+  padding-left: 5px;
+  width: 20px;
+}
 //----- MAIN -----//
 .main-container {
   max-width: 800px;
@@ -223,8 +231,7 @@ body {
   opacity: 100%;
 };
 .inputsNotCompleteItems {
-  opacity: 70%;
-  opacity: 30%;
+  opacity: 80%;
 };
 //----- @MEDIA -----//
 @media (max-width: 600px) {

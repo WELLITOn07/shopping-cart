@@ -18,9 +18,10 @@ export class ShoppingCartComponent implements OnInit {
   showTags: boolean = false;
   showSelectList: boolean = false;
   showTable: boolean = false;
-  showInputsAddItens: boolean = false;
+  showInputsAddItens: boolean = true;
   showButtonCreateList: boolean = true;
   showButtonEditList: boolean = false;
+  iconShowInputsAddItem: boolean = false;
   theTagUrlSelect: string =  '';
   theTagNameSelect: string = '';
 
@@ -36,7 +37,7 @@ export class ShoppingCartComponent implements OnInit {
   //----- FORM P/ MENU DE CRIAR ITENS -----//
   createItensForm = new FormGroup ({
     nameItem: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    valueItem: new FormControl(0,{ nonNullable: true, validators: [Validators.required] }),
+    valueItem: new FormControl(0,{nonNullable: true, validators: [Validators.required] }),
     amountItem: new FormControl(1,{ nonNullable: true, validators: [Validators.required]}),
   });
 
@@ -57,6 +58,7 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.showAddLista = false;
     }
+    this.createListForm.reset();
   };
 
   fnEditList() {
@@ -69,11 +71,13 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.showAddLista = false;
     }
+    this.createListForm.reset();
   };
 
   fnSelectlist () {
     this.showAddLista = false;
     this.showTags = false;
+    this.createListForm.reset()
     this.showInputsAddItens = false;
     if (this.showSelectList === false) {
       this.showSelectList = true;
@@ -105,8 +109,17 @@ export class ShoppingCartComponent implements OnInit {
   fnAddItensCart () {
     const itensShoppingCart = this.createItensForm.value;
     this.shoppingCartService.CreateShoppingCart(itensShoppingCart);
+    this.showInputsAddItens = false;
+    this.iconShowInputsAddItem = true;
+    this.createItensForm.reset();
   };
-  //----- FUNÇÃO P/ SALVAR LISTA -----//
+
+  //------ FUNÇÃO MOSTRAR INPUTS DE ADD ITENS -----//
+  fnShowInputsAddItemFixed () {
+    this.iconShowInputsAddItem = false;
+    this.showInputsAddItens = true;
+  };
+   //----- FUNÇÃO P/ SALVAR LISTA -----//
 
   saveShoppingCart () {
     window.alert('Lista salva com sucesso!')
