@@ -3,5 +3,7 @@ export type ShoppingCart = {
   nameItem: string;
   valueItem: number ;
   amountItem: number;
-  dateList: object;
+  dateList: Date;
+  totalAmount?: number;
+  totalValue?: number;
 };

@@ -104,24 +104,22 @@ export class ShoppingCartComponent implements OnInit {
     this.showButtonEditList = true;
   };
 
-    list = String(this.createListForm.value.name)
-    name = String(this.createItensForm.value.nameItem);
-    value = Number(this.createItensForm.value.valueItem);
-    amount = Number(this.createItensForm.value.amountItem);
-    dateToday = new Date ();
-    date = this.dateToday.getFullYear;
-
   //----- FUNÇÃO P/ ADICIONAR ITENS -----//
   fnAddItensCart () {
+    const list = String(this.createListForm.value.name)
+    const name = String(this.createItensForm.value.nameItem);
+    const value = Number(this.createItensForm.value.valueItem);
+    const amount = Number(this.createItensForm.value.amountItem);
+    const dateToday = new Date();
+    const date = dateToday;
     const newShoppingCart: ShoppingCart =
       {
-        nameList: this.list,
-        nameItem: this.name,
-        valueItem: this.value,
-        amountItem: this.amount,
-        dateList: this.date
+        nameList: list,
+        nameItem: name,
+        valueItem: value,
+        amountItem: amount,
+        dateList: date
       };
-    console.log(newShoppingCart);
     this.shoppingCartService.CreateShoppingCart(newShoppingCart);
 
     this.showInputsAddItens = false;
