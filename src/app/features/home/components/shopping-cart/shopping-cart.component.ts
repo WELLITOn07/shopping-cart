@@ -24,8 +24,8 @@ export class ShoppingCartComponent implements OnInit {
   iconShowInputsAddItem: boolean = false;
   theTagUrlSelect: string =  '';
   theTagNameSelect: string = '';
-  totalAmount: number = 0;
-  totalValue: number = 0;
+  totalAmount: number = this.shoppingCartService.totalAmount;
+  totalValue: number = this.shoppingCartService.totalValue;
 
   shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.getShoppingCartList();
 

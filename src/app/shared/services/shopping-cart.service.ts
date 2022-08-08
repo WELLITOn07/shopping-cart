@@ -7,6 +7,8 @@ import { ShoppingCart } from '../models/shoppingCart.model';
 export class ShoppingCartService {
 
   shoppingCartList: Array<ShoppingCart> = [];
+  totalAmount: number = 0;
+  totalValue: number = 0;
 
   constructor () { }
 

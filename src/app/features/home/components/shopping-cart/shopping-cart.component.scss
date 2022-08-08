@@ -39,14 +39,16 @@ body {
   font-weight: bold;
 };
 .main-container button {
-  margin-top: 7px;
-  text-align: center;
-  padding: 5px;
+  padding: 10px;
+  background-color: #1d2c4df1;
+  font-weight: bolder;
+  border: 0px;
+  border-radius: 10px;
+  color: aliceblue;
 };
 .main-container button:hover {
-  background-color: #317018c7;
-  color: aliceblue;
-  font-weight: bold;
+  color: #1d2c4df1;
+  background-color: #fca311;
   cursor: pointer;
 };
 .main-container .buttonAdd {
