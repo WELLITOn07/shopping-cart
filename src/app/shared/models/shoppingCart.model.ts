@@ -1,5 +1,7 @@
 export type ShoppingCart = {
-  nameItem?: string;
-  valueItem?: string ;
-  amountItem?: string;
+  nameList: string;
+  nameItem: string;
+  valueItem: number ;
+  amountItem: number;
+  dateList: object;
 };

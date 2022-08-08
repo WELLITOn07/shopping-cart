@@ -29,16 +29,16 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
     createListForm = new FormGroup ({
-    name: new FormControl('',{ nonNullable: true, validators: [Validators.required]})
+    name: new FormControl({nonNullable: true, validators: [Validators.required]})
   });
 
 
 
   //----- FORM P/ MENU DE CRIAR ITENS -----//
   createItensForm = new FormGroup ({
-    nameItem: new FormControl('',{ nonNullable: true, validators: [Validators.required]}),
-    valueItem: new FormControl('',{ nonNullable: true, validators: [Validators.required]}),
-    amountItem: new FormControl('',{ nonNullable: true, validators: [Validators.required]}),
+    nameItem: new FormControl('',{nonNullable: true, validators: [Validators.required]}),
+    valueItem: new FormControl('',{nonNullable: true, validators: [Validators.required]}),
+    amountItem: new FormControl(1,{nonNullable: true, validators: [Validators.required]}),
   });
 
   //----- FUNÇÕES P/ MOSTRAR E ESCONDER MENUS (*ngIf)-----//
@@ -104,11 +104,26 @@ export class ShoppingCartComponent implements OnInit {
     this.showButtonEditList = true;
   };
 
+    list = String(this.createListForm.value.name)
+    name = String(this.createItensForm.value.nameItem);
+    value = Number(this.createItensForm.value.valueItem);
+    amount = Number(this.createItensForm.value.amountItem);
+    dateToday = new Date ();
+    date = this.dateToday.getFullYear;
 
   //----- FUNÇÃO P/ ADICIONAR ITENS -----//
   fnAddItensCart () {
-    const itensShoppingCart = this.createItensForm.value;
-    this.shoppingCartService.CreateShoppingCart(itensShoppingCart);
+    const newShoppingCart: ShoppingCart =
+      {
+        nameList: this.list,
+        nameItem: this.name,
+        valueItem: this.value,
+        amountItem: this.amount,
+        dateList: this.date
+      };
+    console.log(newShoppingCart);
+    this.shoppingCartService.CreateShoppingCart(newShoppingCart);
+
     this.showInputsAddItens = false;
     this.iconShowInputsAddItem = true;
     this.createItensForm.reset();
