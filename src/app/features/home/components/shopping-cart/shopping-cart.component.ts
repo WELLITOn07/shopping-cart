@@ -28,7 +28,7 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
     createListForm = new FormGroup ({
-    name: new FormControl({ nonNullable: true, validators: [Validators.required]})
+    name: new FormControl('',{ nonNullable: true, validators: [Validators.required]})
   });
 
 
