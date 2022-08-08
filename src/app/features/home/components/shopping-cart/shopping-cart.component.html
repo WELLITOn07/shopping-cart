@@ -14,7 +14,7 @@
 
     <input type="number" class="inputs-value-item" formControlName="valueItem" placeholder="valor">
 
-    <input type="number" class="inputs-amount-item" formControlName="amountItem">
+    <input type="number" class="inputs-amount-item"   formControlName="amountItem">
 
     <button class="main-container buttonAdd" type="submit" [disabled]="createItensForm.invalid" (click)="fnAddItensCart()"><img src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-6/64/shopping-basket-accept-icon.png" class="buttonAddItem"></button>
   </form>
@@ -86,11 +86,11 @@
     <tfoot class="table-tfoot">
       <tr>
         <th colspan="4">TOTAL DE ITENS</th>
-        <td></td>
+        <td>{{ totalAmount }}</td>
       </tr>
       <tr>
         <th colspan="4">VALOR TOTAL</th>
-        <td></td>
+        <td>{{ totalValue }}</td>
       </tr>
 
       <tr class="tfoot-add-remove" *ngIf="showInputsAddItens">

@@ -24,6 +24,8 @@ export class ShoppingCartComponent implements OnInit {
   iconShowInputsAddItem: boolean = false;
   theTagUrlSelect: string =  '';
   theTagNameSelect: string = '';
+  totalAmount: number = 0;
+  totalValue: number = 0;
 
   shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.getShoppingCartList();
 
@@ -125,6 +127,9 @@ export class ShoppingCartComponent implements OnInit {
     this.showInputsAddItens = false;
     this.iconShowInputsAddItem = true;
     this.createItensForm.reset();
+
+
+    let total = this.shoppingCartItens.map(amount => amount.amountItem);
   };
 
   //------ FUNÇÃO MOSTRAR INPUTS DE ADD ITENS -----//

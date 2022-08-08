@@ -12,7 +12,6 @@ export class ShoppingCartService {
 
   CreateShoppingCart (shoppingCart: ShoppingCart) {
     this.shoppingCartList.push(shoppingCart);
-    console.log(this.shoppingCartList);
   };
 
   getShoppingCartList () {
