@@ -18,7 +18,7 @@ export class ShoppingCartComponent implements OnInit {
   showTags: boolean = false;
   showSelectList: boolean = false;
   showTable: boolean = false;
-  showInputsAddItens: boolean = true;
+  showInputsAddItens: boolean = false;
   showButtonCreateList: boolean = true;
   showButtonEditList: boolean = false;
   iconShowInputsAddItem: boolean = false;
