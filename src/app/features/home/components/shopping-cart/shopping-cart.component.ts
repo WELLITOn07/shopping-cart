@@ -36,9 +36,9 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FORM P/ MENU DE CRIAR ITENS -----//
   createItensForm = new FormGroup ({
-    nameItem: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    valueItem: new FormControl(0,{nonNullable: true, validators: [Validators.required] }),
-    amountItem: new FormControl(1,{ nonNullable: true, validators: [Validators.required]}),
+    nameItem: new FormControl('',{ nonNullable: true, validators: [Validators.required]}),
+    valueItem: new FormControl('',{ nonNullable: true, validators: [Validators.required]}),
+    amountItem: new FormControl('',{ nonNullable: true, validators: [Validators.required]}),
   });
 
   //----- FUNÇÕES P/ MOSTRAR E ESCONDER MENUS (*ngIf)-----//

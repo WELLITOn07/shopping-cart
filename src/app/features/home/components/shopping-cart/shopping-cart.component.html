@@ -12,11 +12,9 @@
   <form class="main-container fixed" *ngIf="showInputsAddItens" [formGroup]="createItensForm"  [ngClass]="{'inputsCompleteItems': createItensForm.value.nameItem, 'inputsNotCompleteItems': !createItensForm.value.nameItem}">
     <input type="text" placeholder="nome do item" class="inputs-name-item" formControlName="nameItem">
 
-    <label for="inputs-value-item">valor</label>
-    <input type="number" class="inputs-value-item" formControlName="valueItem">
+    <input type="number" class="inputs-value-item" formControlName="valueItem" placeholder="valor">
 
-    <label for="inputs-amount-item">quantidade</label>
-    <input type="number" class="inputs-amount-item" formControlName="amountItem">
+    <input type="number" class="inputs-amount-item" placeholder="quantidade" formControlName="amountItem">
 
     <button class="main-container buttonAdd" type="submit" [disabled]="createItensForm.invalid" (click)="fnAddItensCart()"><img src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-6/64/shopping-basket-accept-icon.png" class="buttonAddItem"></button>
   </form>
