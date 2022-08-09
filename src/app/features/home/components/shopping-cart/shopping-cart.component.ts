@@ -1,4 +1,4 @@
-import { leadingComment } from '@angular/compiler';
+import { leadingComment, ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { elementAt } from 'rxjs';
@@ -22,34 +22,53 @@ export class ShoppingCartComponent implements OnInit {
   showButtonCreateList: boolean = true;
   showButtonEditList: boolean = false;
   iconShowInputsAddItem: boolean = false;
-  theTagUrlSelect: string =  '';
+  theTagUrlSelect: string = '';
   theTagNameSelect: string = '';
 
-  shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.getShoppingCartList();
+  shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.shoppingCartList;
 
 
   //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
-    createListForm = new FormGroup ({
-    name: new FormControl({nonNullable: true, validators: [Validators.required]})
+  createListForm = new FormGroup({
+    name: new FormControl('',{ nonNullable: true, validators: [Validators.required] })
   });
 
 
 
   //----- FORM P/ MENU DE CRIAR ITENS -----//
-  createItensForm = new FormGroup ({
-    nameItem: new FormControl('',{nonNullable: true, validators: [Validators.required]}),
-    valueItem: new FormControl('',{nonNullable: true, validators: [Validators.required]}),
-    amountItem: new FormControl(1,{nonNullable: true, validators: [Validators.required]}),
+  createItensForm = new FormGroup({
+    nameItem: new FormControl('',{nonNullable: true, validators: [Validators.required] }),
+    valueItem: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    amountItem: new FormControl(1, { nonNullable: true, validators: [Validators.required] }),
   });
+
 
   //----- FUNÇÕES P/ MOSTRAR E ESCONDER MENUS (*ngIf)-----//
 
   constructor(private shoppingCartService: ShoppingCartService) { }
 
   ngOnInit(): void {
+    this.fnCacheLocaltorage()
   }
 
-  fnAddList () {
+    //----- FUNÇÃO P/ ADCIONAR ITENS DA SESSION STORAGE (CACHE) -----//
+    fnCacheLocaltorage() {
+      const cacheShoppingCart = localStorage.getItem('shoppingCart');
+      if (cacheShoppingCart) {
+        this.showButtonCreateList = false;
+        this.showButtonEditList = true;
+        this. iconShowInputsAddItem = true;
+        this.showTable = true;
+        const shoppingCart: Array <ShoppingCart> = JSON.parse(cacheShoppingCart)
+        for (let itens of shoppingCart) {
+          this.totalAmount += itens.amountItem;
+          this.totalValue += itens.valueItem;
+          this.shoppingCartService.CreateShoppingCart(itens);
+        }
+      };
+    };
+
+  fnAddList() {
     this.showTableNameAndTag = true;
     this.showSelectList = false;
     this.showTags = false;
@@ -75,7 +94,7 @@ export class ShoppingCartComponent implements OnInit {
     this.createListForm.reset();
   };
 
-  fnSelectlist () {
+  fnSelectlist() {
     this.showAddLista = false;
     this.showTags = false;
     this.createListForm.reset()
@@ -87,7 +106,7 @@ export class ShoppingCartComponent implements OnInit {
     }
   };
 
-  fnshowTags () {
+  fnshowTags() {
     if (this.showTags === false) {
       this.showTags = true;
     } else {
@@ -95,7 +114,7 @@ export class ShoppingCartComponent implements OnInit {
     }
   };
 
-  fnCreateShoppingCart () {
+  fnCreateShoppingCart() {
     this.showTableNameAndTag = true;
     this.showAddLista = false;
     this.showTags = false;
@@ -109,7 +128,7 @@ export class ShoppingCartComponent implements OnInit {
   totalValue: number = 0;
 
   //----- FUNÇÃO P/ ADICIONAR ITENS -----//
-  fnAddItensCart () {
+  fnAddItensCart() {
     this.totalAmount = 0;
     this.totalValue = 0;
     const list = String(this.createListForm.value.name)
@@ -120,16 +139,16 @@ export class ShoppingCartComponent implements OnInit {
     const date = dateToday;
     //----------------------------//
     const newShoppingCart: ShoppingCart =
-      {
-        nameList: list,
-        nameItem: name,
-        valueItem: value,
-        amountItem: amount,
-        dateList: date,
-        totalAmount: this.totalAmount,
-        totalValue: this.totalValue,
-        tag: this.theTagUrlSelect,
-      };
+    {
+      nameList: list,
+      nameItem: name,
+      valueItem: value,
+      amountItem: amount,
+      dateList: date,
+      totalAmount: this.totalAmount,
+      totalValue: this.totalValue,
+      tag: this.theTagUrlSelect,
+    };
     this.shoppingCartService.CreateShoppingCart(newShoppingCart);
     //----------------------------//
     this.shoppingCartItens.forEach(total => {
@@ -143,13 +162,13 @@ export class ShoppingCartComponent implements OnInit {
   };
 
   //------ FUNÇÃO MOSTRAR INPUTS DE ADD ITENS -----//
-  fnShowInputsAddItemFixed () {
+  fnShowInputsAddItemFixed() {
     this.iconShowInputsAddItem = false;
     this.showInputsAddItens = true;
   };
-   //----- FUNÇÃO P/ SALVAR LISTA -----//
+  //----- FUNÇÃO P/ SALVAR LISTA -----//
 
-  saveShoppingCart () {
+  saveShoppingCart() {
     window.alert('Lista salva com sucesso!')
     this.showTable = false;
     this.showInputsAddItens = false;
@@ -161,25 +180,28 @@ export class ShoppingCartComponent implements OnInit {
   //----- FUNÇÃO P/ REMOVER LISTA -----//
 
   removeShoppingCart() {
-    window.alert('Lista removida com sucesso!')
     this.showTable = false;
     this.showInputsAddItens = false;
+    this.iconShowInputsAddItem = false;
     this.showButtonCreateList = true;
     this.showButtonEditList = false;
     this.showSelectList = false;
+    let clearLocalStorage = localStorage.clear();
+    this.shoppingCartItens = [];
+    this.shoppingCartService.shoppingCartList = [];
+    window.alert('Lista removida com sucesso!');
   };
 
 
   //----- FUNÇÃO P/ REMOVER ITENS SELECIONADOS -----//
   removeSelected() {
-
   };
 
   //----- FUNÇÃO P/ ADICIONAR TAG NO CARRINHO
 
-  tagSelect (event: any) {
-    const tagIcon:HTMLImageElement = event.target;
-    const allTags:NodeListOf<Element> = document.querySelectorAll('.tagIcon');
+  tagSelect(event: any) {
+    const tagIcon: HTMLImageElement = event.target;
+    const allTags: NodeListOf<Element> = document.querySelectorAll('.tagIcon');
 
     allTags.forEach(tag => {
       this.theTagUrlSelect = '';
@@ -190,23 +212,23 @@ export class ShoppingCartComponent implements OnInit {
 
     allTags.forEach(tag => {
       if (tagIcon.classList.contains('wallet')) {
-        this.theTagUrlSelect =  'https://icons.iconarchive.com/icons/inipagi/business-economic/48/wallet-icon.png';
+        this.theTagUrlSelect = 'https://icons.iconarchive.com/icons/inipagi/business-economic/48/wallet-icon.png';
         this.theTagNameSelect = 'compras variadas';
       };
       if (tagIcon.classList.contains('cart')) {
-        this.theTagUrlSelect =  'https://icons.iconarchive.com/icons/inipagi/business-economic/48/cart-icon.png';
+        this.theTagUrlSelect = 'https://icons.iconarchive.com/icons/inipagi/business-economic/48/cart-icon.png';
         this.theTagNameSelect = 'compra de alimentos';
       };
       if (tagIcon.classList.contains('store')) {
-        this.theTagUrlSelect =  'https://icons.iconarchive.com/icons/inipagi/business-economic/48/store-icon.png';
+        this.theTagUrlSelect = 'https://icons.iconarchive.com/icons/inipagi/business-economic/48/store-icon.png';
         this.theTagNameSelect = 'compra de roupas';
       };
       if (tagIcon.classList.contains('service')) {
-        this.theTagUrlSelect =  'https://icons.iconarchive.com/icons/inipagi/business-economic/48/point-of-service-icon.png';
+        this.theTagUrlSelect = 'https://icons.iconarchive.com/icons/inipagi/business-economic/48/point-of-service-icon.png';
         this.theTagNameSelect = 'compra de remédios';
       };
       if (tagIcon.classList.contains('checklist')) {
-        this.theTagUrlSelect =  'https://icons.iconarchive.com/icons/inipagi/business-economic/48/checklist-icon.png';
+        this.theTagUrlSelect = 'https://icons.iconarchive.com/icons/inipagi/business-economic/48/checklist-icon.png';
         this.theTagNameSelect = 'compras na internet';
       };
     });

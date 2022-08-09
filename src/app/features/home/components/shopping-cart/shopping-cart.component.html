@@ -7,37 +7,51 @@
   </div>
 
   <div class="main-container fixed" *ngIf="iconShowInputsAddItem === true">
-    <button (click)="fnShowInputsAddItemFixed()" class="main-container buttonAdd"><img src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-6/64/shopping-basket-add-icon.png" alt="icon-show-inputs-add-item" class="buttonAddItem"></button>
+    <button (click)="fnShowInputsAddItemFixed()" class="main-container buttonAdd"><img
+        src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-6/64/shopping-basket-add-icon.png"
+        alt="icon-show-inputs-add-item" class="buttonAddItem"></button>
   </div>
-  <form class="main-container fixed" *ngIf="showInputsAddItens" [formGroup]="createItensForm"  [ngClass]="{'inputsCompleteItems': createItensForm.value.nameItem, 'inputsNotCompleteItems': !createItensForm.value.nameItem}">
+  <form class="main-container fixed" *ngIf="showInputsAddItens" [formGroup]="createItensForm"
+    [ngClass]="{'inputsCompleteItems': createItensForm.value.nameItem, 'inputsNotCompleteItems': !createItensForm.value.nameItem}">
     <input type="text" placeholder="nome do item" class="inputs-name-item" formControlName="nameItem">
 
     <input type="number" class="inputs-value-item" formControlName="valueItem" placeholder="valor">
 
-    <input type="number" class="inputs-amount-item"   formControlName="amountItem">
+    <input type="number" class="inputs-amount-item" formControlName="amountItem">
 
-    <button class="main-container buttonAdd" type="submit" [disabled]="createItensForm.invalid" (click)="fnAddItensCart()"><img src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-6/64/shopping-basket-accept-icon.png" class="buttonAddItem"></button>
+    <button class="main-container buttonAdd" type="submit" [disabled]="createItensForm.invalid"
+      (click)="fnAddItensCart()"><img
+        src="https://icons.iconarchive.com/icons/custom-icon-design/pretty-office-6/64/shopping-basket-accept-icon.png"
+        class="buttonAddItem"></button>
   </form>
 
   <form class="main-tag" *ngIf="showAddLista" [formGroup]="createListForm">
     <input type="text" placeholder="nome da lista" formControlName="name">
     <button (click)="fnshowTags()">ECOLHA UMA ETIQUETA</button>
   </form>
-    <div class="main-tag" *ngIf="showAddLista">
-      <button (click)="fnCreateShoppingCart()" [ngClass]="{'main-tag-create-button': createListForm.invalid, 'main-tag-create-button-active': !createListForm.invalid}" type="submit" [disabled]="createListForm.invalid">{{ createListForm.invalid ? 'ESCOLHA UM NOME' : 'CRIAR LISTA' }}</button>
-    </div>
+  <div class="main-tag" *ngIf="showAddLista">
+    <button (click)="fnCreateShoppingCart()"
+      [ngClass]="{'main-tag-create-button': createListForm.invalid, 'main-tag-create-button-active': !createListForm.invalid}"
+      type="submit" [disabled]="createListForm.invalid">{{ createListForm.invalid ? 'ESCOLHA UM NOME' : 'CRIAR LISTA'
+      }}</button>
+  </div>
 
   <div class="main-tag" *ngIf="showTags">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/wallet-icon.png" alt="icon-pattern" (click)="tagSelect($event)" class="tagIcon wallet">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/wallet-icon.png" alt="icon-pattern"
+      (click)="tagSelect($event)" class="tagIcon wallet">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/cart-icon.png" alt="icon-marketplace" (click)="tagSelect($event)"class="tagIcon cart">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/cart-icon.png" alt="icon-marketplace"
+      (click)="tagSelect($event)" class="tagIcon cart">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/store-icon.png" alt="icon-shopping" (click)="tagSelect($event)" class="tagIcon store">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/store-icon.png" alt="icon-shopping"
+      (click)="tagSelect($event)" class="tagIcon store">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/point-of-service-icon.png" alt="icon-economy" (click)="tagSelect($event)" class="tagIcon service">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/point-of-service-icon.png"
+      alt="icon-economy" (click)="tagSelect($event)" class="tagIcon service">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/checklist-icon.png" alt="icon-debts" (click)="tagSelect($event)" class="tagIcon checklist">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/checklist-icon.png" alt="icon-debts"
+      (click)="tagSelect($event)" class="tagIcon checklist">
   </div>
   <div class="main-tag TagNameSelect" *ngIf="showTags && !showTable">
     <p>{{ theTagNameSelect }}</p>
@@ -74,14 +88,14 @@
       </tr>
     </thead>
 
-      <tbody class="tableTbody">
-          <tr *ngFor="let item of shoppingCartItens">
-          <td colspan="2">{{ item.nameItem }}</td>
-          <td>{{ item.valueItem | currency: 'BRL':true:'1.2'}}</td>
-          <td><input type="checkbox"></td>
-          <td>{{ item.amountItem }}</td>
-        </tr>
-      </tbody>
+    <tbody class="tableTbody">
+      <tr *ngFor="let item of shoppingCartItens">
+        <td colspan="2">{{ item.nameItem }}</td>
+        <td>{{ item.valueItem | currency: 'BRL':true:'1.2'}}</td>
+        <td><input type="checkbox"></td>
+        <td>{{ item.amountItem }}</td>
+      </tr>
+    </tbody>
 
     <tfoot class="table-tfoot">
       <tr>
