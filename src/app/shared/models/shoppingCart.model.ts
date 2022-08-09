@@ -4,6 +4,7 @@ export type ShoppingCart = {
   valueItem: number ;
   amountItem: number;
   dateList: Date;
-  totalAmount?: number;
-  totalValue?: number;
+  totalAmount: number;
+  totalValue: number;
+  tag: string
 };

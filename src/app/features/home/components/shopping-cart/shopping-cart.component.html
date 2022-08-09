@@ -31,7 +31,7 @@
 
     <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/wallet-icon.png" alt="icon-pattern" (click)="tagSelect($event)" class="tagIcon wallet">
 
-    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/cart-icon.png" alt="icon-marketplace" (click)="tagSelect($event)" class="tagIcon cart">
+    <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/cart-icon.png" alt="icon-marketplace" (click)="tagSelect($event)"class="tagIcon cart">
 
     <img src="https://icons.iconarchive.com/icons/inipagi/business-economic/48/store-icon.png" alt="icon-shopping" (click)="tagSelect($event)" class="tagIcon store">
 
@@ -77,7 +77,7 @@
       <tbody class="tableTbody">
           <tr *ngFor="let item of shoppingCartItens">
           <td colspan="2">{{ item.nameItem }}</td>
-          <td>{{ item.valueItem | currency:'BRL':true:'1.2'}}</td>
+          <td>{{ item.valueItem | currency: 'BRL':true:'1.2'}}</td>
           <td><input type="checkbox"></td>
           <td>{{ item.amountItem }}</td>
         </tr>
@@ -90,7 +90,7 @@
       </tr>
       <tr>
         <th colspan="4">VALOR TOTAL</th>
-        <td>{{ totalValue }}</td>
+        <td>{{ totalValue | currency: 'BRL':true:'1.2'}}</td>
       </tr>
 
       <tr class="tfoot-add-remove" *ngIf="showInputsAddItens">

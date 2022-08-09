@@ -24,10 +24,9 @@ export class ShoppingCartComponent implements OnInit {
   iconShowInputsAddItem: boolean = false;
   theTagUrlSelect: string =  '';
   theTagNameSelect: string = '';
-  totalAmount: number = this.shoppingCartService.totalAmount;
-  totalValue: number = this.shoppingCartService.totalValue;
 
   shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.getShoppingCartList();
+
 
   //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
     createListForm = new FormGroup ({
@@ -106,8 +105,13 @@ export class ShoppingCartComponent implements OnInit {
     this.showButtonEditList = true;
   };
 
+  totalAmount: number = 0;
+  totalValue: number = 0;
+
   //----- FUNÇÃO P/ ADICIONAR ITENS -----//
   fnAddItensCart () {
+    this.totalAmount = 0;
+    this.totalValue = 0;
     const list = String(this.createListForm.value.name)
     const name = String(this.createItensForm.value.nameItem);
     const value = Number(this.createItensForm.value.valueItem);
@@ -120,16 +124,23 @@ export class ShoppingCartComponent implements OnInit {
         nameItem: name,
         valueItem: value,
         amountItem: amount,
-        dateList: date
+        dateList: date,
+        totalAmount: this.totalAmount,
+        totalValue: this.totalValue,
+        tag: this.theTagUrlSelect
       };
     this.shoppingCartService.CreateShoppingCart(newShoppingCart);
+
+    this.shoppingCartItens.forEach(total => {
+      this.totalAmount += total.amountItem
+      this.totalValue += total.valueItem
+    });
 
     this.showInputsAddItens = false;
     this.iconShowInputsAddItem = true;
     this.createItensForm.reset();
 
-
-    let total = this.shoppingCartItens.map(amount => amount.amountItem);
+    console.log(this.shoppingCartItens);
   };
 
   //------ FUNÇÃO MOSTRAR INPUTS DE ADD ITENS -----//
