@@ -118,6 +118,7 @@ export class ShoppingCartComponent implements OnInit {
     const amount = Number(this.createItensForm.value.amountItem);
     const dateToday = new Date();
     const date = dateToday;
+    //----------------------------//
     const newShoppingCart: ShoppingCart =
       {
         nameList: list,
@@ -127,10 +128,10 @@ export class ShoppingCartComponent implements OnInit {
         dateList: date,
         totalAmount: this.totalAmount,
         totalValue: this.totalValue,
-        tag: this.theTagUrlSelect
+        tag: this.theTagUrlSelect,
       };
     this.shoppingCartService.CreateShoppingCart(newShoppingCart);
-
+    //----------------------------//
     this.shoppingCartItens.forEach(total => {
       this.totalAmount += total.amountItem
       this.totalValue += total.valueItem
@@ -139,8 +140,6 @@ export class ShoppingCartComponent implements OnInit {
     this.showInputsAddItens = false;
     this.iconShowInputsAddItem = true;
     this.createItensForm.reset();
-
-    console.log(this.shoppingCartItens);
   };
 
   //------ FUNÇÃO MOSTRAR INPUTS DE ADD ITENS -----//
@@ -170,8 +169,8 @@ export class ShoppingCartComponent implements OnInit {
     this.showSelectList = false;
   };
 
-  //----- FUNÇÃO P/ REMOVER ITENS SELECIONADOS -----//
 
+  //----- FUNÇÃO P/ REMOVER ITENS SELECIONADOS -----//
   removeSelected() {
 
   };
