@@ -1,9 +1,9 @@
 <app-header></app-header>
 <main class="main-container">
   <div class="main-buttons">
-    <button (click)="fnAddList()" *ngIf="showButtonCreateList">CRIAR LISTA</button>
-    <button (click)="fnEditList()" *ngIf="showButtonEditList">EDITAR LISTA</button>
-    <button (click)="fnSelectlist()">SELECIONAR LISTA</button>
+    <button (click)="fnAddList()" *ngIf="showButtonCreateList">CLIQUE PARA CRIAR LISTA</button>
+    <button (click)="fnEditList()" *ngIf="showButtonEditList">CLIQUE PARA EDITAR LISTA</button>
+    <button (click)="fnSelectlist()">CLIQUE PARA SELECIONAR LISTA</button>
   </div>
 
   <div class="main-container fixed" *ngIf="iconShowInputsAddItem === true">
@@ -21,7 +21,7 @@
 
   <form class="main-tag" *ngIf="showAddLista" [formGroup]="createListForm">
     <input type="text" placeholder="nome da lista" formControlName="name">
-    <button (click)="fnshowTags()">ETIQUETA</button>
+    <button (click)="fnshowTags()">ECOLHA UMA ETIQUETA</button>
   </form>
     <div class="main-tag" *ngIf="showAddLista">
       <button (click)="fnCreateShoppingCart()" [ngClass]="{'main-tag-create-button': createListForm.invalid, 'main-tag-create-button-active': !createListForm.invalid}" type="submit" [disabled]="createListForm.invalid">{{ createListForm.invalid ? 'ESCOLHA UM NOME' : 'CRIAR LISTA' }}</button>
