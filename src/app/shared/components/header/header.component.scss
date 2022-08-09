@@ -78,11 +78,10 @@ body {
     position: absolute;
     z-index: 3;
     flex-direction: column;
-    background-color: #14213d;
+    background-color: #14213d2c;
     top: 55px;
     transition: 1s;
-    font-size: 0px;
-    left: -120px;
+    left: -200px;
   }
   .nav-container {
     position: fixed;
@@ -101,7 +100,6 @@ body {
     background-color: #395185a1;
     left: 50px;
     background-color: #14213d;
-    font-size: 1.3em;
   }
 };
 
