@@ -1,6 +1,7 @@
 import { leadingComment, ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { elementAt } from 'rxjs';
 import { ShoppingCart } from 'src/app/shared/models/shoppingCart.model';
 import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
@@ -45,10 +46,10 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FUNÇÕES P/ MOSTRAR E ESCONDER MENUS (*ngIf)-----//
 
-  constructor(private shoppingCartService: ShoppingCartService) { }
+  constructor(private shoppingCartService: ShoppingCartService, private router: Router) { }
 
   ngOnInit(): void {
-    this.fnCacheLocaltorage()
+      this.fnCacheLocaltorage()
   }
 
     //----- FUNÇÃO P/ ADCIONAR ITENS DA SESSION STORAGE (CACHE) -----//
@@ -129,8 +130,6 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FUNÇÃO P/ ADICIONAR ITENS -----//
   fnAddItensCart() {
-    this.totalAmount = 0;
-    this.totalValue = 0;
     const list = String(this.createListForm.value.name)
     const name = String(this.createItensForm.value.nameItem);
     const value = Number(this.createItensForm.value.valueItem);
@@ -186,10 +185,13 @@ export class ShoppingCartComponent implements OnInit {
     this.showButtonCreateList = true;
     this.showButtonEditList = false;
     this.showSelectList = false;
+    this.totalAmount = 0;
+    this.totalValue = 0;
     let clearLocalStorage = localStorage.clear();
     this.shoppingCartItens = [];
     this.shoppingCartService.shoppingCartList = [];
     window.alert('Lista removida com sucesso!');
+    document.location.reload()
   };
 
 

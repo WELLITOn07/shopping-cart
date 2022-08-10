@@ -4,6 +4,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { FinancialControlComponent } from './components/pages/financial-control/financial-control.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
+    
   ],
   exports: [
     ShoppingCartComponent,
