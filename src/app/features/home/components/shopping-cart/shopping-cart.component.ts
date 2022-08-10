@@ -39,8 +39,8 @@ export class ShoppingCartComponent implements OnInit {
   //----- FORM P/ MENU DE CRIAR ITENS -----//
   createItensForm = new FormGroup({
     nameItem: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    valueItem: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    amountItem: new FormControl(1, { nonNullable: true, validators: [Validators.required] }),
+    valueItem: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.min((1))] }),
+    amountItem: new FormControl(1, { nonNullable: true, validators: [Validators.required, Validators.min((1))] }),
   });
 
 
