@@ -192,6 +192,7 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartService.shoppingCartList = [];
     window.alert('Lista removida com sucesso!');
     document.location.reload()
+    this.router.navigateByUrl('home');
   };
 
 
