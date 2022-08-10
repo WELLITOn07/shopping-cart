@@ -157,7 +157,7 @@ export class ShoppingCartComponent implements OnInit {
     //----------------------------//
     this.shoppingCartItens.forEach(total => {
       this.totalAmount += total.amountItem;
-      this.totalValue += total.valueItem;
+      this.totalValue += total.valueItem * this.totalAmount;
     });
 
     this.showInputsAddItens = false;
