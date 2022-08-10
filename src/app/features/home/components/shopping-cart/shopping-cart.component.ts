@@ -63,6 +63,7 @@ export class ShoppingCartComponent implements OnInit {
       const shoppingCart: Array<ShoppingCart> = JSON.parse(cacheShoppingCart)
       for (let itens of shoppingCart) {
         this.nameList = itens.nameList
+        this.theTagUrlSelect = itens.tag;
         this.totalAmount += itens.amountItem;
         this.totalValue += itens.valueItem;
         this.shoppingCartService.CreateShoppingCart(itens);
