@@ -6,7 +6,7 @@ import { LoginComponent } from './features/login/components/login/login.componen
 import { UserRegistrationComponent } from './features/login/components/pages/user-registration/user-registration.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '', component: ShoppingCartComponent},
   {path: 'home', component: ShoppingCartComponent},
   {path: 'controleDeGastos', component: FinancialControlComponent},
   {path: 'login', component: LoginComponent},

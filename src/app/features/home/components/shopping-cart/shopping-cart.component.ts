@@ -191,8 +191,7 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartItens = [];
     this.shoppingCartService.shoppingCartList = [];
     window.alert('Lista removida com sucesso!');
-    location.reload()
-    this.router.navigateByUrl('home');
+    location.reload();
   };
 
 
