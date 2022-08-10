@@ -16,6 +16,7 @@ export class ShoppingCartService {
     //------ SAVE LOCAL STORAGE
     let ShoppingCartListLocalStorage = localStorage.clear();
     ShoppingCartListLocalStorage = localStorage.setItem('shoppingCart', JSON.stringify(this.shoppingCartList));
+    console.log(this.shoppingCartList);
   };
 
   getShoppingCartList () {

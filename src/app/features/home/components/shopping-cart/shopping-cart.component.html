@@ -69,7 +69,7 @@
       <tr class="thead-tag" *ngIf="showTableNameAndTag">
         <th colspan="4">
           <!--NOME DA LISTA-->
-          {{ createListForm.value.name }}
+          {{ createListForm.value.name ? createListForm.value.name : nameList}}
         </th>
         <th id="ThTag">
           <!--IMG TAG-->

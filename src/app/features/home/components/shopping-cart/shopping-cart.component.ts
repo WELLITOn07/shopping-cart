@@ -31,14 +31,14 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
   createListForm = new FormGroup({
-    name: new FormControl('',{ nonNullable: true, validators: [Validators.required] })
+    name: new FormControl('', { nonNullable: true, validators: [Validators.required] })
   });
 
 
 
   //----- FORM P/ MENU DE CRIAR ITENS -----//
   createItensForm = new FormGroup({
-    nameItem: new FormControl('',{nonNullable: true, validators: [Validators.required] }),
+    nameItem: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     valueItem: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     amountItem: new FormControl(1, { nonNullable: true, validators: [Validators.required] }),
   });
@@ -49,25 +49,26 @@ export class ShoppingCartComponent implements OnInit {
   constructor(private shoppingCartService: ShoppingCartService, private router: Router) { }
 
   ngOnInit(): void {
-      this.fnCacheLocaltorage()
+    this.fnCacheLocaltorage()
   }
 
-    //----- FUNÇÃO P/ ADCIONAR ITENS DA SESSION STORAGE (CACHE) -----//
-    fnCacheLocaltorage() {
-      const cacheShoppingCart = localStorage.getItem('shoppingCart');
-      if (cacheShoppingCart) {
-        this.showButtonCreateList = false;
-        this.showButtonEditList = true;
-        this. iconShowInputsAddItem = true;
-        this.showTable = true;
-        const shoppingCart: Array <ShoppingCart> = JSON.parse(cacheShoppingCart)
-        for (let itens of shoppingCart) {
-          this.totalAmount += itens.amountItem;
-          this.totalValue += itens.valueItem;
-          this.shoppingCartService.CreateShoppingCart(itens);
-        }
-      };
+  //----- FUNÇÃO P/ ADCIONAR ITENS DA SESSION STORAGE (CACHE) -----//
+  fnCacheLocaltorage() {
+    const cacheShoppingCart = localStorage.getItem('shoppingCart');
+    if (cacheShoppingCart) {
+      this.showButtonCreateList = false;
+      this.showButtonEditList = true;
+      this.iconShowInputsAddItem = true;
+      this.showTable = true;
+      const shoppingCart: Array<ShoppingCart> = JSON.parse(cacheShoppingCart)
+      for (let itens of shoppingCart) {
+        this.nameList = itens.nameList
+        this.totalAmount += itens.amountItem;
+        this.totalValue += itens.valueItem;
+        this.shoppingCartService.CreateShoppingCart(itens);
+      }
     };
+  };
 
   fnAddList() {
     this.showTableNameAndTag = true;
@@ -127,10 +128,13 @@ export class ShoppingCartComponent implements OnInit {
 
   totalAmount: number = 0;
   totalValue: number = 0;
+  nameList: string = '';
 
   //----- FUNÇÃO P/ ADICIONAR ITENS -----//
   fnAddItensCart() {
-    const list = String(this.createListForm.value.name)
+    this.totalAmount = 0;
+    this. totalValue = 0;
+    const listName: string = String(this.createListForm.value.name);
     const name = String(this.createItensForm.value.nameItem);
     const value = Number(this.createItensForm.value.valueItem);
     const amount = Number(this.createItensForm.value.amountItem);
@@ -139,7 +143,7 @@ export class ShoppingCartComponent implements OnInit {
     //----------------------------//
     const newShoppingCart: ShoppingCart =
     {
-      nameList: list,
+      nameList: listName,
       nameItem: name,
       valueItem: value,
       amountItem: amount,
@@ -151,8 +155,8 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartService.CreateShoppingCart(newShoppingCart);
     //----------------------------//
     this.shoppingCartItens.forEach(total => {
-      this.totalAmount += total.amountItem
-      this.totalValue += total.valueItem
+      this.totalAmount += total.amountItem;
+      this.totalValue += total.valueItem;
     });
 
     this.showInputsAddItens = false;
