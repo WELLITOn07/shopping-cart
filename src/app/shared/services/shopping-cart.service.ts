@@ -7,6 +7,7 @@ import { ShoppingCart } from '../models/shoppingCart.model';
 export class ShoppingCartService {
 
   shoppingCartList: Array<ShoppingCart> = [];
+  id: number = 0;
 
   constructor () { }
 
@@ -16,10 +17,15 @@ export class ShoppingCartService {
     //------ SAVE LOCAL STORAGE
     let ShoppingCartListLocalStorage = localStorage.clear();
     ShoppingCartListLocalStorage = localStorage.setItem('shoppingCart', JSON.stringify(this.shoppingCartList));
-    console.log(this.shoppingCartList);
   };
 
   getShoppingCartList () {
     return this.shoppingCartList;
+  };
+
+  removeItemTheShoppingCart(id: number) {
+    let checkbox: number = id;
+    this.shoppingCartList.forEach(id => {
+    });
   };
 }; //end

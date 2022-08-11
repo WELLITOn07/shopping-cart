@@ -13,7 +13,7 @@ import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.servi
 })
 export class ShoppingCartComponent implements OnInit {
 
-  //----- VARIAVEIS -----//
+  //----- VARIAVEIS P/ NgIf -----//
   showTableNameAndTag = true;
   showAddLista: boolean = false;
   showTags: boolean = false;
@@ -23,18 +23,11 @@ export class ShoppingCartComponent implements OnInit {
   showButtonCreateList: boolean = true;
   showButtonEditList: boolean = false;
   iconShowInputsAddItem: boolean = false;
-  theTagUrlSelect: string = '';
-  theTagNameSelect: string = '';
-
-  shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.shoppingCartList;
-
 
   //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
   createListForm = new FormGroup({
     name: new FormControl('', { nonNullable: true, validators: [Validators.required] })
   });
-
-
 
   //----- FORM P/ MENU DE CRIAR ITENS -----//
   createItensForm = new FormGroup({
@@ -43,33 +36,33 @@ export class ShoppingCartComponent implements OnInit {
     amountItem: new FormControl(1, { nonNullable: true, validators: [Validators.required, Validators.min((1))] }),
   });
 
-
-  //----- FUNÇÕES P/ MOSTRAR E ESCONDER MENUS (*ngIf)-----//
-
   constructor(private shoppingCartService: ShoppingCartService, private router: Router) { }
 
   ngOnInit(): void {
     this.fnCacheLocaltorage()
-  }
+  };
 
-  //----- FUNÇÃO P/ ADCIONAR ITENS DA SESSION STORAGE (CACHE) -----//
+  //----- FUNÇÃO P/ ADCIONAR ITENS DA LOCAL STORAGE (CACHE) -----//
   fnCacheLocaltorage() {
     const cacheShoppingCart = localStorage.getItem('shoppingCart');
     if (cacheShoppingCart) {
       this.showButtonCreateList = false;
       this.showButtonEditList = true;
-      this.iconShowInputsAddItem = true;
+      this.showInputsAddItens = true;
       this.showTable = true;
       const shoppingCart: Array<ShoppingCart> = JSON.parse(cacheShoppingCart)
       for (let itens of shoppingCart) {
+        this.id = itens.id;
         this.nameList = itens.nameList
         this.theTagUrlSelect = itens.tag;
         this.totalAmount += itens.amountItem;
-        this.totalValue += itens.valueItem;
+        this.totalValue += itens.valueItem * itens.amountItem;
         this.shoppingCartService.CreateShoppingCart(itens);
       }
     };
   };
+
+  //----- FUNÇÕES P/ MOSTRAR E ESCONDER MENUS (*ngIf)-----//
 
   fnAddList() {
     this.showTableNameAndTag = true;
@@ -127,15 +120,21 @@ export class ShoppingCartComponent implements OnInit {
     this.showButtonEditList = true;
   };
 
+  //----- VARIAVEIS DO SHOPPING CART MODEL
+  shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.shoppingCartList;
+  id:number = 0;
+  nameList: string = '';
   totalAmount: number = 0;
   totalValue: number = 0;
-  nameList: string = '';
+  theTagUrlSelect: string = '';
+  theTagNameSelect: string = '';
 
-  //----- FUNÇÃO P/ ADICIONAR ITENS -----//
+  //----- FUNÇÃO P/ ADICIONAR ITENS
   fnAddItensCart() {
-    this.totalAmount = 0;
-    this. totalValue = 0;
+    this.id += 1;
     const listName: string = String(this.createListForm.value.name);
+    this.totalAmount = 0;
+    this.totalValue = 0;
     const name = String(this.createItensForm.value.nameItem);
     const value = Number(this.createItensForm.value.valueItem);
     const amount = Number(this.createItensForm.value.amountItem);
@@ -144,6 +143,7 @@ export class ShoppingCartComponent implements OnInit {
     //----------------------------//
     const newShoppingCart: ShoppingCart =
     {
+      id: this.id,
       nameList: listName,
       nameItem: name,
       valueItem: value,
@@ -157,7 +157,7 @@ export class ShoppingCartComponent implements OnInit {
     //----------------------------//
     this.shoppingCartItens.forEach(total => {
       this.totalAmount += total.amountItem;
-      this.totalValue += total.valueItem * this.totalAmount;
+      this.totalValue += total.valueItem * total.amountItem;
     });
 
     this.showInputsAddItens = false;
@@ -192,6 +192,7 @@ export class ShoppingCartComponent implements OnInit {
     this.showSelectList = false;
     this.totalAmount = 0;
     this.totalValue = 0;
+    this.id = 0;
     let clearLocalStorage = localStorage.clear();
     this.shoppingCartItens = [];
     this.shoppingCartService.shoppingCartList = [];
@@ -204,8 +205,12 @@ export class ShoppingCartComponent implements OnInit {
   removeSelected() {
   };
 
-  //----- FUNÇÃO P/ ADICIONAR TAG NO CARRINHO
+  //----- FUNÇÃO P/ ADICIONAR ID
+  checkboxSelect(index: number) {
 
+  };
+
+  //----- FUNÇÃO P/ ADICIONAR TAG NO CARRINHO
   tagSelect(event: any) {
     const tagIcon: HTMLImageElement = event.target;
     const allTags: NodeListOf<Element> = document.querySelectorAll('.tagIcon');
