@@ -1,2 +1,2 @@
 # ProjetoFinalMJV
-Essa aplicação tem como finalidade possibilitar o usuário na criação de lista de compras, onde será mostrado o valor final de seus gastos e podendo sálva-las e compara-lás para controle financeiro mensal.
+Essa aplicação tem como finalidade possibilitar o usuário na criação de lista de compras, onde será mostrado o valor final de seus gastos e podendo salvá-las e compará-las para controle financeiro mensal.
