@@ -69,7 +69,7 @@
       <tr class="thead-tag" *ngIf="showTableNameAndTag">
         <th colspan="4">
           <!--NOME DA LISTA-->
-          {{ createListForm.value.name ? createListForm.value.name : nameList}}
+          {{ createListForm.value.name ?  createListForm.value.name : nameListCache }}
         </th>
         <th id="ThTag">
           <!--IMG TAG-->
@@ -92,8 +92,12 @@
       <tr *ngFor="let item of shoppingCartItens; index as i">
         <td colspan="2">{{ item.nameItem }}</td>
         <td>{{ item.valueItem | currency: 'BRL':true:'1.2'}}</td>
-        <td><input type="checkbox"(click)="checkboxSelect(i+1)"></td>
-        <td>{{ item.amountItem }}</td>
+        <td>
+          <form [formGroup]="formCheck">
+            <input type="checkbox" (change)="changeCheck($event, item, i)" formControlName="check" (click)="checkboxSelect(item, i)">
+          </form>
+        </td>
+            <td>{{ item.amountItem }}</td>
       </tr>
     </tbody>
 
@@ -107,7 +111,7 @@
         <td>{{ totalValue | currency: 'BRL':true:'1.2'}}</td>
       </tr>
 
-      <tr class="tfoot-add-remove" *ngIf="showInputsAddItens">
+      <tr class="tfoot-add-remove" *ngIf="showButtonEditList">
         <th colspan="5">
           <button (click)="saveShoppingCart()">SALVAR LISTA</button>
         </th>
@@ -119,8 +123,8 @@
         </th>
       </tr>
       <tr class="tfoot-add-remove">
-        <th colspan="5">
-          <button (click)="removeSelected()">REMOVER SELECIONADOS</button>
+        <th colspan="5" *ngIf="shoppingCartItens">
+          <button (click)="removeSelected(shoppingCartItens)">REMOVER SELECIONADOS</button>
         </th>
       </tr>
     </tfoot>

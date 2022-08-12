@@ -23,6 +23,17 @@ export class ShoppingCartService {
     return this.shoppingCartList;
   };
 
+  attTag(tagUrl: string) {
+    for (let itens of this.shoppingCartList) {
+      itens.tag = tagUrl;
+    };
+
+    //----ATT CACHE LOCAL STORAGE-----/
+    let ShoppingCartListLocalStorage =
+    localStorage.clear();
+    ShoppingCartListLocalStorage = localStorage.setItem('shoppingCart', JSON.stringify(this.shoppingCartList));
+  };
+
   removeItemTheShoppingCart(id: number) {
     let checkbox: number = id;
     this.shoppingCartList.forEach(id => {

@@ -2,7 +2,7 @@ import { leadingComment, ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { elementAt } from 'rxjs';
+import { elementAt, filter } from 'rxjs';
 import { ShoppingCart } from 'src/app/shared/models/shoppingCart.model';
 import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
 
@@ -23,6 +23,15 @@ export class ShoppingCartComponent implements OnInit {
   showButtonCreateList: boolean = true;
   showButtonEditList: boolean = false;
   iconShowInputsAddItem: boolean = false;
+  //----- VARIAVEIS DO SHOPPING CART MODEL
+  shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.shoppingCartList;
+  id: number = 0;
+  nameListCache: string = '';
+  totalAmount: number = 0;
+  totalValue: number = 0;
+  theTagUrlSelect: string = '';
+  theTagNameSelect: string = '';
+  itemChecked: Array<ShoppingCart> = [];
 
   //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
   createListForm = new FormGroup({
@@ -39,13 +48,14 @@ export class ShoppingCartComponent implements OnInit {
   constructor(private shoppingCartService: ShoppingCartService, private router: Router) { }
 
   ngOnInit(): void {
-    this.fnCacheLocaltorage()
+    this.fnCacheLocaltorage();
   };
 
   //----- FUNÇÃO P/ ADCIONAR ITENS DA LOCAL STORAGE (CACHE) -----//
   fnCacheLocaltorage() {
     const cacheShoppingCart = localStorage.getItem('shoppingCart');
     if (cacheShoppingCart) {
+      this.showTableNameAndTag = true;
       this.showButtonCreateList = false;
       this.showButtonEditList = true;
       this.showInputsAddItens = true;
@@ -53,7 +63,7 @@ export class ShoppingCartComponent implements OnInit {
       const shoppingCart: Array<ShoppingCart> = JSON.parse(cacheShoppingCart)
       for (let itens of shoppingCart) {
         this.id = itens.id;
-        this.nameList = itens.nameList
+        this.nameListCache = itens.nameList;
         this.theTagUrlSelect = itens.tag;
         this.totalAmount += itens.amountItem;
         this.totalValue += itens.valueItem * itens.amountItem;
@@ -74,7 +84,6 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.showAddLista = false;
     }
-    this.createListForm.reset();
   };
 
   fnEditList() {
@@ -82,24 +91,24 @@ export class ShoppingCartComponent implements OnInit {
     this.showSelectList = false;
     this.showTags = false;
     this.showInputsAddItens = false;
+    this.iconShowInputsAddItem = false;
     if (this.showAddLista === false) {
       this.showAddLista = true;
     } else {
       this.showAddLista = false;
-    }
-    this.createListForm.reset();
+    };
+    this.createItensForm.reset();
   };
 
   fnSelectlist() {
     this.showAddLista = false;
     this.showTags = false;
-    this.createListForm.reset()
     this.showInputsAddItens = false;
     if (this.showSelectList === false) {
       this.showSelectList = true;
     } else {
       this.showSelectList = false;
-    }
+    };
   };
 
   fnshowTags() {
@@ -118,23 +127,17 @@ export class ShoppingCartComponent implements OnInit {
     this.showTable = true;
     this.showButtonCreateList = false;
     this.showButtonEditList = true;
+    if (this.theTagUrlSelect) {
+      this.shoppingCartService.attTag(this.theTagUrlSelect)
+    }
   };
-
-  //----- VARIAVEIS DO SHOPPING CART MODEL
-  shoppingCartItens: Array<ShoppingCart> = this.shoppingCartService.shoppingCartList;
-  id:number = 0;
-  nameList: string = '';
-  totalAmount: number = 0;
-  totalValue: number = 0;
-  theTagUrlSelect: string = '';
-  theTagNameSelect: string = '';
 
   //----- FUNÇÃO P/ ADICIONAR ITENS
   fnAddItensCart() {
-    this.id += 1;
-    const listName: string = String(this.createListForm.value.name);
+    this.id;
     this.totalAmount = 0;
     this.totalValue = 0;
+    const nameList = String(this.createListForm.value.name)
     const name = String(this.createItensForm.value.nameItem);
     const value = Number(this.createItensForm.value.valueItem);
     const amount = Number(this.createItensForm.value.amountItem);
@@ -143,8 +146,8 @@ export class ShoppingCartComponent implements OnInit {
     //----------------------------//
     const newShoppingCart: ShoppingCart =
     {
-      id: this.id,
-      nameList: listName,
+      id: this.shoppingCartItens.length,
+      nameList: nameList ? nameList : this.nameListCache,
       nameItem: name,
       valueItem: value,
       amountItem: amount,
@@ -160,8 +163,8 @@ export class ShoppingCartComponent implements OnInit {
       this.totalValue += total.valueItem * total.amountItem;
     });
 
-    this.showInputsAddItens = false;
     this.iconShowInputsAddItem = true;
+    this.showInputsAddItens = false;
     this.createItensForm.reset();
   };
 
@@ -200,14 +203,44 @@ export class ShoppingCartComponent implements OnInit {
     location.reload();
   };
 
-
+  //------ working -----//
   //----- FUNÇÃO P/ REMOVER ITENS SELECIONADOS -----//
-  removeSelected() {
+  formCheck = new FormGroup({
+    check: new FormControl()
+  })
+
+  removeSelected(i: ShoppingCart[]) {
+    console.log(i)
   };
 
-  //----- FUNÇÃO P/ ADICIONAR ID
-  checkboxSelect(index: number) {
+  changeCheck(event: any, item: ShoppingCart, index: number) {
+    if (event.target.checked == true) {
+      this.itemChecked.push(item)
 
+      console.log(this.itemChecked)
+    }
+
+    if (event.target.checked == false && this.itemChecked) {
+      this.itemChecked.splice(index, 1)
+      console.log(this.itemChecked)
+    }
+
+
+  };
+
+  //----- FUNÇÃO P/ ADICIONAR ID -----//
+  checkboxList: Array<number> = [];
+  checkboxSelect(index: ShoppingCart, i: number) {
+
+    /*
+     this.shoppingCartItens.forEach((el) => {
+       if(el.id === index.id){
+         console.log(el)
+         return el
+        }
+        return el
+      })
+      */
   };
 
   //----- FUNÇÃO P/ ADICIONAR TAG NO CARRINHO

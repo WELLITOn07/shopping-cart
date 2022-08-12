@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  imgGithub: string = 'https://icons.iconarchive.com/icons/alecive/flatwoken/48/Apps-Github-B-icon.png';
+  changeImg: boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeIcon() {
+    this.changeImg = !this.changeImg;
+    if (this.changeImg) {
+      this.imgGithub = 'https://icons.iconarchive.com/icons/alecive/flatwoken/48/Apps-Github-B-icon.png';
+    } else {
+      this.imgGithub = 'https://icons.iconarchive.com/icons/alecive/flatwoken/48/Apps-Github-icon.png';
+    }
   }
 
 }
