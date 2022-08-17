@@ -58,10 +58,11 @@
   </div>
 
   <div class="selection-list" *ngIf="showSelectList === true">
-    <select class="select">
-      <!--<option>MINHA LISTA-1 20/05/2022</option>-->
+    <select class="select" *ngFor="let list of listsShoppingCart">
+      <option>{{ list }}</option>
     </select>
     <button>ADICIONAR LISTA</button>
+    <button>DELETAR LISTA</button>
   </div>
 
   <table class="table" *ngIf="showTable">
@@ -119,7 +120,7 @@
 
       <tr class="tfoot-add-remove">
         <th colspan="5">
-          <button (click)="removeShoppingCart()">REMOVER LISTA</button>
+          <button (click)="removeShoppingCart()">ESVAZIAR CARRINHO</button>
         </th>
       </tr>
       <tr class="tfoot-add-remove">

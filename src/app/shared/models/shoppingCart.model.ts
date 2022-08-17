@@ -7,5 +7,5 @@ export type ShoppingCart = {
   dateList: Date;
   totalAmount: number;
   totalValue: number;
-  tag: string
+  tag: string,
 };

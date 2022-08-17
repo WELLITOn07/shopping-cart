@@ -1,3 +1,12 @@
 <app-header></app-header>
-<p>login works!</p>
+<form class="form" [formGroup]="userLoginForm">
+  <label for="input username" class="label username"><img src="https://img.icons8.com/plumpy/24/000000/username.png"/>Username</label>
+  <input type="text" placeholder="Nome do usuário" class="input username" formControlName="username">
+  <!------------------------------------------------------------------->
+  <label for="input password" class="label password"><img src="https://img.icons8.com/plumpy/24/000000/password.png"/>Password</label>
+  <input type="password" class="input password" placeholder="Senha" formControlName="password">
+  <!-------------------------------------------------------------------->
+  <button (click)="login()" type="submit"[disabled]="userLoginForm.invalid" [ngClass]="{'login-button': !userLoginForm.invalid, 'noRegistered': userLoginForm.invalid}">{{userLoginForm.invalid ? 'Preencha todos os campos' : 'Entrar' }}</button>
+  <p class="text-register" (click)="navegateRegister('register')">Cadastrar-se</p>
+</form>
 <app-footer></app-footer>

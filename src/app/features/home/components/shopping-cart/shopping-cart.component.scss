@@ -209,6 +209,11 @@ body {
 .select {
   margin: 5px;
 };
+//---- SELECT LIST ----//
+.selection-list {
+  display: flex;
+  gap: 5PX;
+};
 .selection-list select {
   padding: 5px;
   color: #1d2c4df1;

@@ -8,6 +8,7 @@ export class ShoppingCartService {
 
   shoppingCartList: Array<ShoppingCart> = [];
   id: number = 0;
+  listsShoppingCart: Array <any> = [];
 
   constructor () { }
 
@@ -15,8 +16,9 @@ export class ShoppingCartService {
     //------ CREATE NEW SHOPPING CART
     this.shoppingCartList.push(shoppingCart);
     //------ SAVE LOCAL STORAGE
-    let ShoppingCartListLocalStorage = localStorage.clear();
-    ShoppingCartListLocalStorage = localStorage.setItem('shoppingCart', JSON.stringify(this.shoppingCartList));
+    let ShoppingCartListLocalStorage = localStorage.removeItem('cacheShoppingCart');
+    ShoppingCartListLocalStorage = localStorage.setItem('cacheShoppingCart', JSON.stringify(this.shoppingCartList));
+    console.log(this.listsShoppingCart);
   };
 
   getShoppingCartList () {
@@ -30,8 +32,8 @@ export class ShoppingCartService {
 
     //----ATT CACHE LOCAL STORAGE-----/
     let ShoppingCartListLocalStorage =
-    localStorage.clear();
-    ShoppingCartListLocalStorage = localStorage.setItem('shoppingCart', JSON.stringify(this.shoppingCartList));
+    localStorage.removeItem('cacheShoppingCart');
+    ShoppingCartListLocalStorage = localStorage.setItem('cacheShoppingCart', JSON.stringify(this.shoppingCartList));
   };
 
   removeItemTheShoppingCart(id: number) {
@@ -39,4 +41,10 @@ export class ShoppingCartService {
     this.shoppingCartList.forEach(id => {
     });
   };
+
+  saveShoppingCartList (shoppingCartList: Array <ShoppingCart>) {
+    let ShoppingCartListLocalStorage = localStorage.setItem('saveShoppingCart', JSON.stringify(shoppingCartList));
+  };
+
+
 }; //end

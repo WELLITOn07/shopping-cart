@@ -1,6 +1,6 @@
 import { leadingComment, ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { elementAt, filter } from 'rxjs';
 import { ShoppingCart } from 'src/app/shared/models/shoppingCart.model';
@@ -32,6 +32,7 @@ export class ShoppingCartComponent implements OnInit {
   theTagUrlSelect: string = '';
   theTagNameSelect: string = '';
   itemChecked: Array<ShoppingCart> = [];
+  listsShoppingCart: Array <any> = this.shoppingCartService.listsShoppingCart;
 
   //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
   createListForm = new FormGroup({
@@ -40,9 +41,9 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FORM P/ MENU DE CRIAR ITENS -----//
   createItensForm = new FormGroup({
-    nameItem: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    valueItem: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.min((1))] }),
-    amountItem: new FormControl(1, { nonNullable: true, validators: [Validators.required, Validators.min((1))] }),
+    nameItem: new FormControl('', { nonNullable: true, validators: [Validators.required]}),
+    valueItem: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.min((1))]}),
+    amountItem: new FormControl(1, { nonNullable: true, validators: [Validators.required, Validators.min((1))]}),
   });
 
   constructor(private shoppingCartService: ShoppingCartService, private router: Router) { }
@@ -53,7 +54,7 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FUNÇÃO P/ ADCIONAR ITENS DA LOCAL STORAGE (CACHE) -----//
   fnCacheLocaltorage() {
-    const cacheShoppingCart = localStorage.getItem('shoppingCart');
+    const cacheShoppingCart = localStorage.getItem('cacheShoppingCart');
     if (cacheShoppingCart) {
       this.showTableNameAndTag = true;
       this.showButtonCreateList = false;
@@ -104,11 +105,18 @@ export class ShoppingCartComponent implements OnInit {
     this.showAddLista = false;
     this.showTags = false;
     this.showInputsAddItens = false;
+    this.iconShowInputsAddItem = true;
     if (this.showSelectList === false) {
       this.showSelectList = true;
     } else {
       this.showSelectList = false;
     };
+      this.listsShoppingCart = [];
+      const cachesaveShoppingCart = localStorage.getItem('saveShoppingCart');
+      const saveShoppingCart = JSON.parse(cachesaveShoppingCart);
+      for (let list of saveShoppingCart) {
+        this.listsShoppingCart.push(list);
+      }
   };
 
   fnshowTags() {
@@ -172,17 +180,18 @@ export class ShoppingCartComponent implements OnInit {
   fnShowInputsAddItemFixed() {
     this.iconShowInputsAddItem = false;
     this.showInputsAddItens = true;
+    this.showSelectList = false;
   };
   //----- FUNÇÃO P/ SALVAR LISTA -----//
 
   saveShoppingCart() {
-    window.alert('Lista salva com sucesso!')
-    this.showTable = false;
     this.showInputsAddItens = false;
-    this.showButtonCreateList = true;
-    this.showButtonEditList = false;
+    this.showButtonCreateList = false;
+    this.showButtonEditList = true;
     this.showSelectList = false;
-  }
+    this.shoppingCartService.saveShoppingCartList(this.shoppingCartItens);
+    location.reload();
+  };
 
   //----- FUNÇÃO P/ REMOVER LISTA -----//
 
@@ -196,7 +205,7 @@ export class ShoppingCartComponent implements OnInit {
     this.totalAmount = 0;
     this.totalValue = 0;
     this.id = 0;
-    let clearLocalStorage = localStorage.clear();
+    let clearLocalStorage = localStorage.removeItem('cacheShoppingCart');
     this.shoppingCartItens = [];
     this.shoppingCartService.shoppingCartList = [];
     window.alert('Lista removida com sucesso!');
@@ -207,7 +216,7 @@ export class ShoppingCartComponent implements OnInit {
   //----- FUNÇÃO P/ REMOVER ITENS SELECIONADOS -----//
   formCheck = new FormGroup({
     check: new FormControl()
-  })
+  });
 
   removeSelected(i: ShoppingCart[]) {
     console.log(i)

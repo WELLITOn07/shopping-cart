@@ -4,11 +4,12 @@ import { FinancialControlComponent } from './features/home/components/pages/fina
 import { ShoppingCartComponent } from './features/home/components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './features/login/components/login/login.component';
 import { UserRegistrationComponent } from './features/login/components/pages/user-registration/user-registration.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
-  {path: '', component: ShoppingCartComponent},
-  {path: 'home', component: ShoppingCartComponent},
-  {path: 'controleDeGastos', component: FinancialControlComponent},
+  {path: '', component: ShoppingCartComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: ShoppingCartComponent, canActivate: [AuthGuard]},
+  {path: 'controleDeGastos', component: FinancialControlComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: UserRegistrationComponent}
 ];
