@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { findIndex } from 'rxjs';
 import { ShoppingCart } from '../models/shoppingCart.model';
 
@@ -11,7 +12,7 @@ export class ShoppingCartService {
   id: number = 0;
   listsShoppingCart: Array <any> = [];
 
-  constructor () { }
+  constructor (private router: Router) { }
 
   CreateShoppingCart (shoppingCart: ShoppingCart) {
     //------ CREATE NEW SHOPPING CART
@@ -45,6 +46,7 @@ export class ShoppingCartService {
     localStorage.removeItem('cacheShoppingCart');
     localStorage.setItem('cacheShoppingCart', JSON.stringify(this.shoppingCartList));
     location.reload();
+    this.router.navigateByUrl('');
   };
 
   saveShoppingCartList (shoppingCartList: Array <ShoppingCart>) {

@@ -190,6 +190,7 @@ export class ShoppingCartComponent implements OnInit {
     this.showSelectList = false;
     this.shoppingCartService.saveShoppingCartList(this.shoppingCartItens);
     location.reload();
+    this.router.navigateByUrl('');
   };
 
   //----- FUNÇÃO P/ REMOVER LISTA -----//
@@ -209,6 +210,7 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartService.shoppingCartList = [];
     window.alert('Lista removida com sucesso!');
     location.reload();
+    this.router.navigateByUrl('');
   };
 
   //----- FUNÇÃO P/ ADICIONAR ID -----//
