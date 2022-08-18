@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { findIndex } from 'rxjs';
 import { ShoppingCart } from '../models/shoppingCart.model';
 
 @Injectable({
@@ -16,9 +17,8 @@ export class ShoppingCartService {
     //------ CREATE NEW SHOPPING CART
     this.shoppingCartList.push(shoppingCart);
     //------ SAVE LOCAL STORAGE
-    let ShoppingCartListLocalStorage = localStorage.removeItem('cacheShoppingCart');
-    ShoppingCartListLocalStorage = localStorage.setItem('cacheShoppingCart', JSON.stringify(this.shoppingCartList));
-    console.log(this.listsShoppingCart);
+    localStorage.removeItem('cacheShoppingCart');
+    localStorage.setItem('cacheShoppingCart', JSON.stringify(this.shoppingCartList));
   };
 
   getShoppingCartList () {
@@ -31,19 +31,25 @@ export class ShoppingCartService {
     };
 
     //----ATT CACHE LOCAL STORAGE-----/
-    let ShoppingCartListLocalStorage =
     localStorage.removeItem('cacheShoppingCart');
-    ShoppingCartListLocalStorage = localStorage.setItem('cacheShoppingCart', JSON.stringify(this.shoppingCartList));
+    localStorage.setItem('cacheShoppingCart', JSON.stringify(this.shoppingCartList));
   };
 
-  removeItemTheShoppingCart(id: number) {
-    let checkbox: number = id;
-    this.shoppingCartList.forEach(id => {
-    });
+  removeItemTheShoppingCart(checkboxList: Array<number>) {
+    for (let i of checkboxList) {
+      if (i === this.shoppingCartList[i].id) {
+          i = this.shoppingCartList.indexOf(this.shoppingCartList[i])
+          this.shoppingCartList.splice(i, 1);
+      }
+    };
+    localStorage.removeItem('cacheShoppingCart');
+    localStorage.setItem('cacheShoppingCart', JSON.stringify(this.shoppingCartList));
+    location.reload();
   };
 
   saveShoppingCartList (shoppingCartList: Array <ShoppingCart>) {
-    let ShoppingCartListLocalStorage = localStorage.setItem('saveShoppingCart', JSON.stringify(shoppingCartList));
+    localStorage.setItem('saveShoppingCart', JSON.stringify(shoppingCartList));
+    window.alert('Lista salva com sucesso!')
   };
 
 

@@ -94,8 +94,8 @@
         <td colspan="2">{{ item.nameItem }}</td>
         <td>{{ item.valueItem | currency: 'BRL':true:'1.2'}}</td>
         <td>
-          <form [formGroup]="formCheck">
-            <input type="checkbox" (change)="changeCheck($event, item, i)" formControlName="check" (click)="checkboxSelect(item, i)">
+          <form >
+            <input type="checkbox"(click)="checkboxSelect(i)">
           </form>
         </td>
             <td>{{ item.amountItem }}</td>
@@ -125,7 +125,7 @@
       </tr>
       <tr class="tfoot-add-remove">
         <th colspan="5" *ngIf="shoppingCartItens">
-          <button (click)="removeSelected(shoppingCartItens)">REMOVER SELECIONADOS</button>
+          <button (click)="removeItemTheShoppingCart()">REMOVER SELECIONADOS</button>
         </th>
       </tr>
     </tfoot>

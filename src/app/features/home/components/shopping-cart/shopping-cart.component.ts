@@ -31,7 +31,6 @@ export class ShoppingCartComponent implements OnInit {
   totalValue: number = 0;
   theTagUrlSelect: string = '';
   theTagNameSelect: string = '';
-  itemChecked: Array<ShoppingCart> = [];
   listsShoppingCart: Array <any> = this.shoppingCartService.listsShoppingCart;
 
   //----- FORM P/ MENU DE CRIAR NOME E TAG -----//
@@ -212,45 +211,31 @@ export class ShoppingCartComponent implements OnInit {
     location.reload();
   };
 
-  //------ working -----//
-  //----- FUNÇÃO P/ REMOVER ITENS SELECIONADOS -----//
-  formCheck = new FormGroup({
-    check: new FormControl()
-  });
-
-  removeSelected(i: ShoppingCart[]) {
-    console.log(i)
-  };
-
-  changeCheck(event: any, item: ShoppingCart, index: number) {
-    if (event.target.checked == true) {
-      this.itemChecked.push(item)
-
-      console.log(this.itemChecked)
-    }
-
-    if (event.target.checked == false && this.itemChecked) {
-      this.itemChecked.splice(index, 1)
-      console.log(this.itemChecked)
-    }
-
-
-  };
-
   //----- FUNÇÃO P/ ADICIONAR ID -----//
   checkboxList: Array<number> = [];
-  checkboxSelect(index: ShoppingCart, i: number) {
-
-    /*
-     this.shoppingCartItens.forEach((el) => {
-       if(el.id === index.id){
-         console.log(el)
-         return el
+  checkboxSelect(i: number) {
+    let checkboxPush: boolean = true;
+    if (this.checkboxList.length > 0) {
+      this.checkboxList.forEach(index => {
+        if (index == i) {
+          i = this.checkboxList.indexOf(index);
+          this.checkboxList.splice(i, 1);
+          checkboxPush = false;
         }
-        return el
-      })
-      */
+      });
+    } else if (this.checkboxList.length === 0) {
+      this.checkboxList.push(i);
+      checkboxPush = false;
+    };
+
+    if (checkboxPush) {
+      this.checkboxList.push(i);
+    };
   };
+
+  removeItemTheShoppingCart() {
+    this.shoppingCartService.removeItemTheShoppingCart(this.checkboxList);
+  }
 
   //----- FUNÇÃO P/ ADICIONAR TAG NO CARRINHO
   tagSelect(event: any) {
