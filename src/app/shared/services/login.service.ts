@@ -18,11 +18,11 @@ export class LoginService {
           const userLogin = sessionStorage.setItem('userLogin', username);
           this.router.navigateByUrl('home');
         } else {
-          return window.alert('Usuário não encontrado!')
+          return window.alert('Usuário ou senha inválida!')
         }
       }
     } else {
-      window.alert('Usuário não encontrado!');
+      window.alert('Usuário ou senha inválida!');
     }
   };
 
