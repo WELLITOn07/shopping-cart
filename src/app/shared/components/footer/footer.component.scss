@@ -35,6 +35,17 @@ body {
   padding: 10px;
 };
 .footer-container p {
-  padding-top: 10px;
   color: #ffffff;
 };
+.mjv {
+  display: flex;
+  background-color: #050e22;
+  height: 20px;
+  font-weight: 500;
+  margin-top: -15px;
+};
+.mjv p:hover {
+  color: #fca311;
+};
+
+

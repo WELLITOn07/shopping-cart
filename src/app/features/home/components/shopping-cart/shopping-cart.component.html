@@ -58,11 +58,19 @@
   </div>
 
   <div class="selection-list" *ngIf="showSelectList === true">
-    <select class="select" *ngFor="let list of listsShoppingCart">
-      <option>{{ list }}</option>
-    </select>
-    <button>ADICIONAR LISTA</button>
-    <button>DELETAR LISTA</button>
+    <table class="selectList">
+      <option selected id="selected">Escolha..</option>
+      <option class="options" *ngFor="let list Of namesList" (click)="fnAddSelectedList(list.nameList)">{{ list.nameList }} ➧ {{ list.dateList | date: 'shortDate'}}</option>
+    </table>
+    <button (click)="fnShowSelectedList()">ADICIONAR LISTA</button>
+
+    <div *ngIf="selectNameList.length > 0">
+      <button (click)="deleteSelectedList()" appAlert>DELETAR LISTA</button>
+      <button>{{selectNameList}}</button>
+    </div>
+    <div *ngIf="selectNameList.length == 0">
+      <button>SELECIONE UMA LISTA P/ DELETAR</button>
+    </div>
   </div>
 
   <table class="table" *ngIf="showTable">
@@ -70,7 +78,7 @@
       <tr class="thead-tag" *ngIf="showTableNameAndTag">
         <th colspan="4">
           <!--NOME DA LISTA-->
-          {{ createListForm.value.name ?  createListForm.value.name : nameListCache }}
+          {{ createListForm.value.name ? createListForm.value.name : nameListCache }}
         </th>
         <th id="ThTag">
           <!--IMG TAG-->
@@ -91,14 +99,14 @@
 
     <tbody class="tableTbody">
       <tr *ngFor="let item of shoppingCartItens; index as i">
-        <td colspan="2">{{ item.nameItem }}</td>
-        <td>{{ item.valueItem | currency: 'BRL':true:'1.2'}}</td>
+        <td colspan="2">{{ item.cart.nameItem }}</td>
+        <td>{{ item.cart.valueItem | currency: 'BRL':true:'1.2'}}</td>
         <td>
-          <form >
-            <input type="checkbox"(click)="checkboxSelect(i)">
+          <form>
+            <input type="checkbox" (click)="checkboxSelect(i)">
           </form>
         </td>
-            <td>{{ item.amountItem }}</td>
+        <td>{{ item.cart.amountItem }}</td>
       </tr>
     </tbody>
 

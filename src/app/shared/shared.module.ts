@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AlertDirective } from './directives/alert.directive';
 
 
 
@@ -9,6 +10,7 @@ import { FooterComponent } from './components/footer/footer.component';
   declarations: [
     HeaderComponent,
     FooterComponent,
+    AlertDirective,
   ],
   imports: [
     CommonModule,
@@ -16,6 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
   exports: [
     HeaderComponent,
     FooterComponent,
+    AlertDirective,
   ]
 })
 export class SharedModule { }

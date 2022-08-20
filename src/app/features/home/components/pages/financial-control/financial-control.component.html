@@ -1,3 +1,86 @@
 <app-header></app-header>
-<p>financial-control works!</p>
+<main class="main-container">
+  <table class="table">
+    <thead class="table-thead">
+      <tr>
+        <th colspan="2" class="
+      financialControl">CONTROLE FINANCEIRO MENSAL</th>
+      </tr>
+      <tr>
+        <th>SELECIONE O PRIMEIRO MÊS</th>
+        <th>SELECIONE O SEGUNDO MÊS</th>
+      </tr>
+      <tr>
+        <th>
+          <div class="select" class="selectList">
+            <option id="selected">Escolha...</option>
+            <option *ngFor="let list of savedShoppingCart" (click)="oneList(list)" class="options">{{ list.dateList | date: 'MM/Y'}}
+            </option>
+          </div>
+        </th>
+        <th>
+          <div class="selectList">
+            <option id="selected">Escolha...</option>
+            <option *ngFor="let list of savedShoppingCart" (click)="twoList(list)" class="options">{{ list.dateList | date: 'MM/Y'}}
+            </option>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="tableTbody">
+      <tr>
+        <th colspan="2" class="historic">HISTÓRICO</th>
+      </tr>
+      <tr>
+        <th colspan="2">Primeiro mês</th>
+      </tr>
+      <tr *ngFor="let list of oneShoppingCartItens" >
+      <!---------------- ONE LIST ---------------->
+        <td colspan="2">
+          {{ list.cart.nameItem }} ✓ {{ list.cart.valueItem | currency: 'R$'}}
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">Segundo mês</th>
+      </tr>
+      <tr *ngFor="let list of twoShoppingCartItens">
+      <!---------------- two LIST ---------------->
+        <td colspan="2">
+          {{ list.cart.nameItem }} ✓ {{ list.cart.valueItem | currency: 'R$'}}
+        </td>
+      </tr>
+
+    </tbody>
+    <tfoot class="table-tfoot">
+      <tr>
+        <th colspan="2"><button *ngIf="!monthOneList && !monthTwoList" style="opacity: 70%;">SELECIONE OS MÊSES</button></th>
+      </tr>
+      <tr>
+        <th colspan="2"><button (click)="applyList()" *ngIf="monthOneList && monthTwoList">AVALIAR</button></th>
+      </tr>
+      <tr *ngIf="finalResult">
+        <th colspan="2">RESUMO FINAL</th>
+      </tr>
+      <tr *ngIf="finalResult">
+        <!---------------- ONE LIST ---------------->
+          <td>Total {{ totalValueOneList  | currency: 'R$'}}</td>
+        <!---------------- TWO LIST ---------------->
+          <td>Total {{ totalValueTwoList | currency: 'R$'}}</td>
+        </tr>
+        <tr *ngIf="finalResult && totalValueOneList !== totalValueTwoList">
+        <th>MÊS COM MAIOR GASTO</th>
+          <td style="color: rgba(165, 28, 28, 0.911);">{{ totalValueOneList >  totalValueTwoList ?  oneShoppingCartItens[0].dateList : oneShoppingCartItens[0].dateList | date: 'MM/Y'}}</td>
+        </tr>
+        <tr *ngIf="finalResult && totalValueOneList === totalValueTwoList">
+          <th>MÊS COM MAIOR GASTO</th>
+            <td style="color: rgba(28, 51, 182, 0.911);">NÃO HOUVE DIFERENÇA</td>
+          </tr>
+
+        <tr *ngIf="finalResult">
+          <th>DIFERENÇA</th>
+          <td style="color: rgba(165, 28, 28, 0.911);"> {{ difference }}</td>
+        </tr>
+    </tfoot>
+  </table>
+</main>
 <app-footer></app-footer>

@@ -83,6 +83,7 @@ body {
   color: #1d2c4df1;
   padding: 5px;
   font-family: 'Bree Serif', serif;
+  word-wrap: break-word;
   };
   .tableTbody {
     height: 250px;
@@ -206,26 +207,37 @@ body {
 .tagSelect {
   border: 2px solid rgba(0, 128, 0, 0.616);
 };
-.select {
-  margin: 5px;
-};
 //---- SELECT LIST ----//
+.selectList {
+  display: block;
+  padding: 5px;
+  background-color: #fca311;
+  text-align: center;
+  width: 1000px;
+  height: 100px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+};
+#selected {
+  font-weight: bolder;
+  color: #1d2c4df1;
+};
 .selection-list {
   display: flex;
   gap: 5PX;
 };
-.selection-list select {
+.options {
+  text-align: center;
   padding: 5px;
-  color: #1d2c4df1;
-  background-color: aliceblue;
-  border: 1px solid #1d2c4df1;
-  box-shadow: 1px 1px 1px #1d2c4df1;
-};
-.selection-list option {
   color: aliceblue;
   background-color: #1d2c4df1;
   border: 1px solid #1d2c4df1;
   box-shadow: 1px 1px 1px #1d2c4df1;
+};
+.options:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #fca311;
 };
 .inputsCompleteItems {
   opacity: 100%;
