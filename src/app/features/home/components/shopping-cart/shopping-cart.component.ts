@@ -170,7 +170,7 @@ export class ShoppingCartComponent implements OnInit {
         }
       };
     }
-    location.reload();
+    this.router.navigateByUrl('home');
   };
   //FUNÇAO P/ DELETAR LISTA SELECIONADA
   deleteSelectedList() {
@@ -204,7 +204,7 @@ export class ShoppingCartComponent implements OnInit {
       localStorage.setItem('savedItens', JSON.stringify(cartList));
     };
     localStorage.removeItem('cacheShoppingCart');
-    location.reload();
+    this.router.navigateByUrl('');
   }
   fnshowTags() {
     if (this.showTags === false) {
@@ -242,7 +242,7 @@ export class ShoppingCartComponent implements OnInit {
         cache.forEach(total => {
         this.totalAmount += total.cart.amountItem;
         this.totalValue += total.cart.valueItem * total.cart.amountItem;
-        location.reload();
+        this.router.navigateByUrl('');
       });
     } else {
       this.totalAmount = amount;
@@ -301,7 +301,7 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartItens = [];
     this.shoppingCartService.shoppingCartList = [];
     window.alert('Lista removida com sucesso!');
-    location.reload();
+    this.router.navigateByUrl('');
   };
 
   //----- FUNÇÃO P/ ADICIONAR ID -----//

@@ -63,7 +63,7 @@ export class ShoppingCartService {
       localStorage.removeItem('savedItens');
       localStorage.setItem('savedItens', JSON.stringify(cartList))
     }
-    location.reload();
+    this.router.navigateByUrl('home');
   };
 
   saveShoppingCartList(shoppingCartList: Array<ShoppingCart>) {
@@ -85,12 +85,12 @@ export class ShoppingCartService {
       localStorage.removeItem('savedShoppingCart');
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
       window.alert('Lista salva com sucesso!');
-      location.reload();
+      this.router.navigateByUrl('home');
     } else {
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
       window.alert('Lista salva com sucesso!');
-      location.reload();
+      this.router.navigateByUrl('home');
     };
     //---------------------//
     const cartList: Array<ShoppingCart> = [];
@@ -111,13 +111,13 @@ export class ShoppingCartService {
       };
       localStorage.removeItem('savedItens');
       localStorage.setItem('savedItens', JSON.stringify(cartList));
-      location.reload();
+      this.router.navigateByUrl('home');
     } else {
       for (let item of shoppingCartList) {
         cartList.push(item)
       }
       localStorage.setItem('savedItens', JSON.stringify(cartList));
-      location.reload();
+      this.router.navigateByUrl('home');
     }
   };
 
