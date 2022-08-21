@@ -11,7 +11,7 @@
       <li (click)="navegateByUrl('controleDeGastos')" *ngIf="userLogin">Controle de Gastos</li>
       <li (click)="navegateByUrl('login')"*ngIf="!userLogin">Login/Registre-se</li>
       <li (click)="exit()" *ngIf="userLogin">Sair</li>
-      <li><img src="https://img.icons8.com/android/24/000000/user.png"/></li>
+      <br>
       <li *ngIf="userLogin" appUser id="user">{{ user }}</li>
     </ul>
   </nav>
