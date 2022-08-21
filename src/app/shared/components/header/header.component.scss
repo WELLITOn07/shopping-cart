@@ -1,6 +1,9 @@
 @charset "UTF-8";
 //----- IMPORTS -----//
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap');
+
 //----- RESET -----//
 * {
   margin: 0px;
@@ -102,6 +105,9 @@ body {
     background-color: #395185a1;
     left: 50px;
     background-color: #14213d;
-  }
+  };
 };
+#user {
+  font-family: 'Teko', sans-serif;
+}
 

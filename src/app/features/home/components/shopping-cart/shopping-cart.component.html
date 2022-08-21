@@ -27,7 +27,7 @@
 
   <form class="main-tag" *ngIf="showAddLista" [formGroup]="createListForm">
     <input type="text" placeholder="nome da lista" formControlName="name">
-    <button (click)="fnshowTags()">ECOLHA UMA ETIQUETA</button>
+    <button (click)="fnshowTags()">ESCOLHA UMA ETIQUETA</button>
   </form>
   <div class="main-tag" *ngIf="showAddLista">
     <button (click)="fnCreateShoppingCart()"

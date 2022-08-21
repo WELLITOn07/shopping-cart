@@ -10,6 +10,7 @@ import { User } from '../../models/user.model';
 export class HeaderComponent implements OnInit {
 
   userLogin: boolean = false;
+  user?: string = '';
 
   constructor(private router: Router) { }
 
@@ -17,6 +18,7 @@ export class HeaderComponent implements OnInit {
     const userSessionStorage = sessionStorage.getItem('userLogin');
     if (userSessionStorage) {
       this.userLogin = true;
+      this.user = userSessionStorage;
     }
   };
 
