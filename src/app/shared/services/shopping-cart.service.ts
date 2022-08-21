@@ -10,7 +10,7 @@ import { ShoppingCart } from '../models/shoppingCart.model';
 export class ShoppingCartService {
 
   shoppingCartList: Array<ShoppingCart> = [];
-  id: number = 0;
+  checkboxList: Array<number> = [];
 
   constructor(private router: Router) { }
 
@@ -33,36 +33,31 @@ export class ShoppingCartService {
   };
 
   removeItemTheShoppingCart(checkboxList: Array<number>) {
-    const cacheNameList = localStorage.getItem('cacheShoppingCart');
-      const cacheName: Array<ShoppingCart> = JSON.parse(cacheNameList);
-      const nameList = cacheName[0].nameList;
-
-    for (let i of checkboxList) {
-      if (i === this.shoppingCartList[i].id) {
-        i = this.shoppingCartList.indexOf(this.shoppingCartList[i])
-        this.shoppingCartList.splice(i, 1);
-      }
-    };
-    //---------------------//
-    localStorage.removeItem('cacheShoppingCart');
-    localStorage.setItem('cacheShoppingCart', JSON.stringify(this.shoppingCartList));
-    //---------------------//
-    const cartList: Array<ShoppingCart> = [];
     const savedItensLS = localStorage.getItem('savedItens');
-    const savedItens: Array<ShoppingCart> = JSON.parse(savedItensLS)
-    if (savedItens) {
-      savedItens.forEach(item => {
-        if (item.nameList === nameList) {
-          let i = savedItens.indexOf(item);
-          savedItens.splice(i, 1);
+    const saved: Array<ShoppingCart> = JSON.parse(savedItensLS);
+
+    if (saved) {
+      checkboxList.forEach(id => {
+        if (id === saved[id].id) {
+          let i: number = saved.indexOf(saved[id]);
+          saved.splice(i, 1);
         }
       });
-      savedItens.forEach(item => {
-        cartList.push(item);
-      });
-      localStorage.removeItem('savedItens');
-      localStorage.setItem('savedItens', JSON.stringify(cartList))
-    }
+      localStorage.setItem('savedItens', JSON.stringify(saved));
+    };
+
+
+    for (let i of checkboxList) {
+        this.shoppingCartList.splice(i, 1);
+    };
+
+    localStorage.removeItem('cacheShoppingCart');
+    const cacheShoppingCart: Array<ShoppingCart> = [];
+    this.shoppingCartList.forEach(item => {
+      cacheShoppingCart.push(item);
+    });
+    localStorage.setItem('cacheShoppingCart', JSON.stringify(cacheShoppingCart));
+    checkboxList = [];
     this.router.navigateByUrl('home');
   };
 

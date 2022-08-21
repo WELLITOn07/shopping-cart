@@ -50,6 +50,7 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit(): void {
     this.fnCacheLocaltorage();
+    this.attValueAndMount();
   };
 
   //----- FUNÇÃO P/ ADCIONAR ITENS DA LOCAL STORAGE (CACHE) -----//
@@ -61,10 +62,15 @@ export class ShoppingCartComponent implements OnInit {
       for (let list of saved) {
         this.namesList.push(list)
       }
+      if (savedLists.length === 0) {
+        localStorage.removeItem('savedShoppingCart')
+      }
     }
+
     //ITENS DA LOCAL STORAGE//
     const cacheShoppingCart = localStorage.getItem('cacheShoppingCart');
     if (cacheShoppingCart) {
+      console.log('cache');
       this.showTableNameAndTag = true;
       this.showButtonCreateList = false;
       this.showButtonEditList = true;
@@ -75,11 +81,19 @@ export class ShoppingCartComponent implements OnInit {
         this.id = itens.id;
         this.nameListCache = itens.nameList;
         this.theTagUrlSelect = itens.cart.tag;
-        this.totalAmount += itens.cart.amountItem;
-        this.totalValue += itens.cart.valueItem * itens.cart.amountItem;
         this.shoppingCartService.CreateShoppingCart(itens);
       }
     };
+  };
+
+   //FUNÇAO P/ ATUALIZAR VALOR TOTAL E QUANTIDADE DE ITENS//
+   attValueAndMount() {
+    this.totalAmount = 0;
+    this.totalValue = 0;
+    this.shoppingCartItens.forEach(item => {
+      this.totalAmount += item.cart.amountItem;
+      this.totalValue += item.cart.valueItem * item.cart.amountItem
+    });
   };
 
   //----- FUNÇÕES P/ MOSTRAR E ESCONDER MENUS (*ngIf)-----//
@@ -111,9 +125,7 @@ export class ShoppingCartComponent implements OnInit {
     this.createItensForm.reset();
   };
   //----- FUNÇÃO SELECIONAR LISTA -----//
-  selectedList: [] = [];
   fnSelectlist() {
-    this.selectedList = [];
     this.showAddLista = false;
     this.showTags = false;
     this.showInputsAddItens = false;
@@ -123,12 +135,8 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.showSelectList = false;
     };
-    const savedLists = localStorage.getItem('saveShoppingCart');
-    const saved = JSON.parse(savedLists);
-    for (let list of saved) {
-      console.log(saved);
-    }
   };
+
   selectNameList: string = '';
   selected: boolean = false;
   fnAddSelectedList(listName: string) {
@@ -138,39 +146,27 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FUNÇÃO MOSTRAR LISTA -----//
   fnShowSelectedList() {
+    this.showTable = true;
     this.showTableNameAndTag = true;
     this.showAddLista = false;
     this.showTags = false;
-    this.showInputsAddItens = true;
-    this.showTable = true;
+    this.showInputsAddItens = false;
+    this.iconShowInputsAddItem = true;
     this.showButtonCreateList = false;
     this.showButtonEditList = true;
     if (this.theTagUrlSelect) {
       this.shoppingCartService.attTag(this.theTagUrlSelect)
     }
     const selectListLocalStorage = localStorage.getItem('savedItens');
-    let selectList = JSON.parse(selectListLocalStorage);
+    let selectList: Array<ShoppingCart> = JSON.parse(selectListLocalStorage);
+
     if (selectList) {
       for (let item of selectList) {
         if (item.nameList === this.selectNameList) {
-          let newShoppingCart: ShoppingCart = {
-            nameList: item.nameList,
-            dateList: item.dateList,
-            id: item.id,
-            cart: {
-              nameItem: item.cart.nameItem,
-              tag: item.cart.tag,
-              valueItem: item.cart.valueItem,
-              amountItem: item.cart.amountItem,
-              totalAmount: item.cart.totalAmount,
-              totalValue: item.cart.totalValue
-            }
-          };
-          this.shoppingCartService.CreateShoppingCart(newShoppingCart);
-        }
-      };
+          this.shoppingCartService.shoppingCartList.push(item)
+      }
     }
-    this.router.navigateByUrl('home');
+  };
   };
   //FUNÇAO P/ DELETAR LISTA SELECIONADA
   deleteSelectedList() {
@@ -235,19 +231,6 @@ export class ShoppingCartComponent implements OnInit {
     const amount = Number(this.createItensForm.value.amountItem);
     const dateToday = new Date();
     const date: Date = dateToday;
-    //-----------------------//
-    const cacheShoppingCart = localStorage.getItem('cacheShoppingCart');
-    const cache: Array<ShoppingCart> = JSON.parse(cacheShoppingCart);
-    if (cache.length > 0) {
-        cache.forEach(total => {
-        this.totalAmount += total.cart.amountItem;
-        this.totalValue += total.cart.valueItem * total.cart.amountItem;
-        this.router.navigateByUrl('');
-      });
-    } else {
-      this.totalAmount = amount;
-      this.totalValue = value * amount;
-    }
     //----------------------------//
     const newShoppingCart: ShoppingCart =
     {
@@ -258,12 +241,17 @@ export class ShoppingCartComponent implements OnInit {
         nameItem: name,
         valueItem: value,
         amountItem: amount,
-        totalAmount: this.totalAmount,
-        totalValue: this.totalValue,
         tag: this.theTagUrlSelect,
       }
+
     };
     this.shoppingCartService.CreateShoppingCart(newShoppingCart);
+    if (!this.totalValue) {
+      this.totalAmount = amount;
+      this.totalValue = value * amount;
+    } else {
+      this.attValueAndMount();
+    }
     //----------------------//
     this.createItensForm.reset();
     this.iconShowInputsAddItem = true;
@@ -305,26 +293,26 @@ export class ShoppingCartComponent implements OnInit {
   };
 
   //----- FUNÇÃO P/ ADICIONAR ID -----//
-  checkboxList: Array<number> = [];
+  checkboxList: Array<number> = this.shoppingCartService.checkboxList;
   checkboxSelect(i: number) {
     let checkboxPush: boolean = true;
-    if (this.checkboxList.length > 0) {
-      this.checkboxList.forEach(index => {
+    if (this.shoppingCartService.checkboxList.length > 0) {
+      this.shoppingCartService.checkboxList.forEach(index => {
         if (index == i) {
-          i = this.checkboxList.indexOf(index);
-          this.checkboxList.splice(i, 1);
+          let ind = this.shoppingCartService.checkboxList.indexOf(index);
+          this.shoppingCartService.checkboxList.splice(ind, 1);
           checkboxPush = false;
         }
       });
-    } else if (this.checkboxList.length === 0) {
-      this.checkboxList.push(i);
+    } else if (this.shoppingCartService.checkboxList.length === 0) {
+      this.shoppingCartService.checkboxList.push(i);
       checkboxPush = false;
     };
 
     if (checkboxPush) {
-      this.checkboxList.push(i);
+      this.shoppingCartService.checkboxList.push(i);
     };
-
+    console.log(this.shoppingCartService.checkboxList);
   };
 
   removeItemTheShoppingCart() {

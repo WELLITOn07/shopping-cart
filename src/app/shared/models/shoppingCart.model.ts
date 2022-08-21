@@ -6,8 +6,6 @@ export type ShoppingCart = {
     nameItem: string;
     valueItem: number ;
     amountItem: number;
-    totalAmount: number;
-    totalValue: number;
     tag: string,
   }
 };
