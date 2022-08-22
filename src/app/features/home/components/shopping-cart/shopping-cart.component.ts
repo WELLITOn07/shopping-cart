@@ -88,8 +88,8 @@ export class ShoppingCartComponent implements OnInit {
     };
   };
 
-   //FUNÇAO P/ ATUALIZAR VALOR TOTAL E QUANTIDADE DE ITENS//
-   attValueAndMount() {
+  //FUNÇAO P/ ATUALIZAR VALOR TOTAL E QUANTIDADE DE ITENS//
+  attValueAndMount() {
     this.totalAmount = 0;
     this.totalValue = 0;
     this.shoppingCartItens.forEach(item => {
@@ -169,10 +169,10 @@ export class ShoppingCartComponent implements OnInit {
         console.log('sim');
         if (item.nameList === this.selectNameList) {
           this.shoppingCartService.shoppingCartList.push(item);
+        }
       }
-    }
-  };
-  this.attValueAndMount();
+    };
+    this.attValueAndMount();
   };
   //FUNÇAO P/ DELETAR LISTA SELECIONADA
   deleteSelectedList() {
@@ -210,7 +210,8 @@ export class ShoppingCartComponent implements OnInit {
     };
     localStorage.removeItem('cacheShoppingCart');
     this.shoppingCartItens = [];
-    window.location.reload();
+    this.router.navigateByUrl('home');
+    window.alert('Removido com sucesso!')
   }
   fnshowTags() {
     if (this.showTags === false) {
@@ -243,7 +244,7 @@ export class ShoppingCartComponent implements OnInit {
     const date: Date = dateToday;
     if (this.shoppingCartItens.length > 0) {
       this.shoppingCartItens.forEach(item => {
-        this.id = item.id ++;
+        this.id = item.id++;
       });
     };
     //----------------------------//
@@ -282,15 +283,15 @@ export class ShoppingCartComponent implements OnInit {
   };
   //----- FUNÇÃO P/ SALVAR LISTA -----//
   saveShoppingCart() {
-     if (this.shoppingCartService.shoppingCartList.length === 0) {
+    if (this.shoppingCartService.shoppingCartList.length === 0) {
       window.alert('Não é possivel salvar listas vazias!');
     } else {
-    this.showInputsAddItens = false;
-    this.iconShowInputsAddItem = true;
-    this.showButtonCreateList = false;
-    this.showButtonEditList = true;
-    this.showSelectList = false;
-    this.shoppingCartService.saveShoppingCartList(this.shoppingCartService.shoppingCartList);
+      this.showInputsAddItens = false;
+      this.iconShowInputsAddItem = true;
+      this.showButtonCreateList = false;
+      this.showButtonEditList = true;
+      this.showSelectList = false;
+      this.shoppingCartService.saveShoppingCartList(this.shoppingCartService.shoppingCartList);
     }
     this.cacheADD = false;
   };
