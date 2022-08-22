@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { findIndex } from 'rxjs';
 import { NamesList } from '../models/savedLists.model';
@@ -35,7 +35,6 @@ export class ShoppingCartService {
   removeItemTheShoppingCart(checkboxList: Array<number>) {
     const savedItensLS = localStorage.getItem('savedItens');
     const saved: Array<ShoppingCart> = JSON.parse(savedItensLS);
-
     if (saved) {
       checkboxList.forEach(id => {
         if (id === saved[id].id) {
@@ -44,11 +43,12 @@ export class ShoppingCartService {
         }
       });
       localStorage.setItem('savedItens', JSON.stringify(saved));
+      window.location.reload();
     };
 
 
     for (let i of checkboxList) {
-        this.shoppingCartList.splice(i, 1);
+      this.shoppingCartList.splice(i, 1);
     };
 
     localStorage.removeItem('cacheShoppingCart');
@@ -58,7 +58,6 @@ export class ShoppingCartService {
     });
     localStorage.setItem('cacheShoppingCart', JSON.stringify(cacheShoppingCart));
     checkboxList = [];
-    this.router.navigateByUrl('home');
   };
 
   saveShoppingCartList(shoppingCartList: Array<ShoppingCart>) {
@@ -76,16 +75,15 @@ export class ShoppingCartService {
         }
       });
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
-
       localStorage.removeItem('savedShoppingCart');
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
-      window.alert('Lista salva com sucesso!');
       this.router.navigateByUrl('home');
+      window.alert('Lista salva com sucesso!');
     } else {
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
-      window.alert('Lista salva com sucesso!');
       this.router.navigateByUrl('home');
+      window.alert('Lista salva com sucesso!');
     };
     //---------------------//
     const cartList: Array<ShoppingCart> = [];
@@ -94,26 +92,27 @@ export class ShoppingCartService {
       const savedItens: Array<ShoppingCart> = JSON.parse(savedItensLS);
       for (let item of savedItens) {
         if (item.nameList === shoppingCartList[0].nameList) {
-          let i = savedItens.indexOf(item)
+          let i = savedItens.indexOf(item);
           savedItens.splice(i, 1)
         }
+        if (item.id === shoppingCartList[0].id) {
+          let i = savedItens.indexOf(item);
+          savedItens.splice(i, 1);
+        }
       };
-      for (let item of savedItens) {
-        cartList.push(item)
-      };
+      
       for (let item of shoppingCartList) {
         cartList.push(item)
       };
+
       localStorage.removeItem('savedItens');
       localStorage.setItem('savedItens', JSON.stringify(cartList));
-      this.router.navigateByUrl('home');
     } else {
       for (let item of shoppingCartList) {
         cartList.push(item)
       }
       localStorage.setItem('savedItens', JSON.stringify(cartList));
-      this.router.navigateByUrl('home');
-    }
+    };
   };
 
 }; //end
