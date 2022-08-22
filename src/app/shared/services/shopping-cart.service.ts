@@ -1,6 +1,5 @@
 import { Injectable, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { findIndex } from 'rxjs';
 import { NamesList } from '../models/savedLists.model';
 import { ShoppingCart } from '../models/shoppingCart.model';
 
@@ -25,6 +24,7 @@ export class ShoppingCartService {
   attTag(tagUrl: string) {
     for (let itens of this.shoppingCartList) {
       itens.cart.tag = tagUrl;
+      console.log(tagUrl);
     };
 
     //----ATT CACHE LOCAL STORAGE-----/
@@ -43,7 +43,6 @@ export class ShoppingCartService {
         }
       });
       localStorage.setItem('savedItens', JSON.stringify(saved));
-      this.router.navigateByUrl('home');
       window.alert('Removido com sucesso!')
     };
 
@@ -78,12 +77,12 @@ export class ShoppingCartService {
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
       localStorage.removeItem('savedShoppingCart');
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
-      this.router.navigateByUrl('home');
+      window.location.reload();
       window.alert('Lista salva com sucesso!');
     } else {
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
-      this.router.navigateByUrl('home');
+      window.location.reload();
       window.alert('Lista salva com sucesso!');
     };
     //---------------------//
@@ -96,16 +95,14 @@ export class ShoppingCartService {
           let i = savedItens.indexOf(item);
           savedItens.splice(i, 1)
         }
-        if (item.id === shoppingCartList[0].id) {
-          let i = savedItens.indexOf(item);
-          savedItens.splice(i, 1);
-        }
       };
-
+      console.log(shoppingCartList);
       for (let item of shoppingCartList) {
         cartList.push(item)
       };
-
+      for (let item of savedItens) {
+        cartList.push(item)
+      };
       localStorage.removeItem('savedItens');
       localStorage.setItem('savedItens', JSON.stringify(cartList));
     } else {

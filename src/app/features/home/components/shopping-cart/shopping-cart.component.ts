@@ -43,7 +43,7 @@ export class ShoppingCartComponent implements OnInit {
   //----- FORM P/ MENU DE CRIAR ITENS -----//
   createItensForm = new FormGroup({
     nameItem: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    valueItem: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.min((1))] }),
+    valueItem: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.min((0.1))] }),
     amountItem: new FormControl(1, { nonNullable: true, validators: [Validators.required, Validators.min((1))] }),
   });
 
@@ -149,8 +149,10 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FUNÇÃO MOSTRAR LISTA -----//
   fnShowSelectedList() {
-    this.cacheADD = true;
-    this.showTable = true;
+    if (!this.selectNameList) {
+      window.alert('Nenhuma lista selecionada!')
+    } else {
+      this.showTable = true;
     this.showTableNameAndTag = true;
     this.showAddLista = false;
     this.showTags = false;
@@ -158,21 +160,22 @@ export class ShoppingCartComponent implements OnInit {
     this.iconShowInputsAddItem = true;
     this.showButtonCreateList = false;
     this.showButtonEditList = true;
-    if (this.theTagUrlSelect) {
-      this.shoppingCartService.attTag(this.theTagUrlSelect)
-    }
     const selectListLocalStorage = localStorage.getItem('savedItens');
     const selectList: Array<ShoppingCart> = JSON.parse(selectListLocalStorage);
 
     if (selectList) {
+      selectList.forEach(tag => {
+        this.theTagUrlSelect = tag.cart.tag;
+        this.nameListCache = tag.nameList;
+      });
       for (let item of selectList) {
-        console.log('sim');
         if (item.nameList === this.selectNameList) {
           this.shoppingCartService.shoppingCartList.push(item);
         }
       }
     };
     this.attValueAndMount();
+    }
   };
   //FUNÇAO P/ DELETAR LISTA SELECIONADA
   deleteSelectedList() {
@@ -210,7 +213,7 @@ export class ShoppingCartComponent implements OnInit {
     };
     localStorage.removeItem('cacheShoppingCart');
     this.shoppingCartItens = [];
-    this.router.navigateByUrl('home');
+    window.location.reload();
     window.alert('Removido com sucesso!')
   }
   fnshowTags() {
@@ -293,7 +296,6 @@ export class ShoppingCartComponent implements OnInit {
       this.showSelectList = false;
       this.shoppingCartService.saveShoppingCartList(this.shoppingCartService.shoppingCartList);
     }
-    this.cacheADD = false;
   };
 
   //----- FUNÇÃO P/ REMOVER LISTA -----//
@@ -312,7 +314,7 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartItens = [];
     this.shoppingCartService.shoppingCartList = [];
     window.alert('Lista removida com sucesso!');
-    this.router.navigateByUrl('');
+    window.location.reload();
   };
 
   //----- FUNÇÃO P/ ADICIONAR ID -----//
