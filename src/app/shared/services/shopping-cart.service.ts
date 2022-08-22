@@ -43,7 +43,8 @@ export class ShoppingCartService {
         }
       });
       localStorage.setItem('savedItens', JSON.stringify(saved));
-      window.location.reload();
+      this.router.navigateByUrl('home');
+      window.alert('Removido com sucesso!')
     };
 
 
@@ -100,7 +101,7 @@ export class ShoppingCartService {
           savedItens.splice(i, 1);
         }
       };
-      
+
       for (let item of shoppingCartList) {
         cartList.push(item)
       };
