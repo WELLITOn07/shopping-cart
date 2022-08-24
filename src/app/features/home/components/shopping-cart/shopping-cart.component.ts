@@ -138,7 +138,6 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.showSelectList = false;
     };
-    window.location.reload();
   };
 
   selectNameList: string = '';

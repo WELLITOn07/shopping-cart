@@ -107,6 +107,7 @@ export class ShoppingCartService {
       });
       localStorage.removeItem('savedItens');
       localStorage.setItem('savedItens', JSON.stringify(cartList))
+      window.location.reload();
       window.alert('Lista salva com sucesso!');
 
     } else {
@@ -117,7 +118,7 @@ export class ShoppingCartService {
         cartList.push(item)
       });
       localStorage.setItem('savedItens', JSON.stringify(cartList))
-
+      window.location.reload();
       window.alert('Lista salva com sucesso!');
     }
   };
