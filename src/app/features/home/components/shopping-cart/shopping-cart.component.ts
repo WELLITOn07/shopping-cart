@@ -216,7 +216,6 @@ export class ShoppingCartComponent implements OnInit {
     };
     localStorage.removeItem('cacheShoppingCart');
     this.shoppingCartItens = [];
-    window.location.reload();
     window.alert('Removido com sucesso!')
   }
   fnshowTags() {
@@ -340,7 +339,6 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartItens = [];
     this.shoppingCartService.shoppingCartList = [];
     window.alert('Lista removida com sucesso!');
-    window.location.reload();
   };
 
   //----- FUNÇÃO P/ ADICIONAR ID -----//
