@@ -43,7 +43,6 @@ export class ShoppingCartService {
         }
       });
       localStorage.setItem('savedItens', JSON.stringify(saved));
-      window.location.reload();
       window.alert('Removido com sucesso!')
     };
 
@@ -72,7 +71,6 @@ export class ShoppingCartService {
       localStorage.setItem('savedItens', JSON.stringify(saved));
     };
     checkboxList = [];
-    window.location.reload();
   };
 
   saveShoppingCartList(shoppingCartList: Array<ShoppingCart>) {
@@ -109,8 +107,8 @@ export class ShoppingCartService {
       });
       localStorage.removeItem('savedItens');
       localStorage.setItem('savedItens', JSON.stringify(cartList))
-      window.location.reload();
       window.alert('Lista salva com sucesso!');
+
     } else {
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
@@ -119,7 +117,7 @@ export class ShoppingCartService {
         cartList.push(item)
       });
       localStorage.setItem('savedItens', JSON.stringify(cartList))
-      window.location.reload();
+
       window.alert('Lista salva com sucesso!');
     }
   };
