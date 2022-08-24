@@ -245,10 +245,17 @@ export class ShoppingCartComponent implements OnInit {
     const amount = Number(this.createItensForm.value.amountItem);
     const dateToday = new Date();
     const date: Date = dateToday;
-    if (this.shoppingCartItens.length > 0) {
+    const savedItens = localStorage.getItem('savedItens');
+    if (savedItens) {
       this.shoppingCartItens.forEach(item => {
         this.id = item.id++;
       });
+    } else {
+      if (this.shoppingCartItens.length > 0) {
+        this.shoppingCartItens.forEach(item => {
+          this.id = item.id++;
+        });
+    }
     };
     //----------------------------//
     const newShoppingCart: ShoppingCart =
@@ -337,16 +344,28 @@ export class ShoppingCartComponent implements OnInit {
     if (checkboxPush) {
       this.shoppingCartService.checkboxList.push(i);
     };
-    console.log(this.checkboxList);
   };
 
   removeItemTheShoppingCart() {
-    this.shoppingCartService.removeItemTheShoppingCart(this.checkboxList);
-    if (this.shoppingCartItens.length === 0) {
+    if (this.shoppingCartItens.length === 1) {
+      const namesLocalStorage = localStorage.getItem('savedShoppingCart');
+      const names: Array<NamesList> = JSON.parse(namesLocalStorage);
+      names.forEach(item => {
+        if (item.nameList === this.shoppingCartItens[0].nameList) {
+          let i: number = names.indexOf(item);
+          names.splice(i, 1);
+        }
+        localStorage.removeItem('savedShoppingCart');
+        localStorage.setItem('savedShoppingCart', JSON.stringify(names));
+      });
+
+      this.shoppingCartService.removeItemTheShoppingCart(this.checkboxList);
       this.showTable = false;
       this.showInputsAddItens = false;
       this.showButtonCreateList = true;
       this.showButtonEditList = false;
+    } else {
+      this.shoppingCartService.removeItemTheShoppingCart(this.checkboxList);
     }
   }
 

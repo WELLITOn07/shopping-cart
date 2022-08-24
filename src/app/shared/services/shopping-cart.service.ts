@@ -57,7 +57,21 @@ export class ShoppingCartService {
       cacheShoppingCart.push(item);
     });
     localStorage.setItem('cacheShoppingCart', JSON.stringify(cacheShoppingCart));
+
+    if (this.shoppingCartList.length === 1) {
+      const savedItens = localStorage.getItem('savedItens');
+      const saved: Array<ShoppingCart> = JSON.parse(savedItens);
+      saved.forEach(item => {
+        if (item.nameList === this.shoppingCartList[0].nameList) {
+          let i: number = saved.indexOf(item);
+          saved.splice(i, 1);
+        }
+      });
+      localStorage.removeItem('savedItens');
+      localStorage.setItem('savedItens', JSON.stringify(saved));
+    };
     checkboxList = [];
+    window.location.reload();
   };
 
   saveShoppingCartList(shoppingCartList: Array<ShoppingCart>) {
@@ -77,12 +91,12 @@ export class ShoppingCartService {
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
       localStorage.removeItem('savedShoppingCart');
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
-      window.location.reload();
+      //window.location.reload();
       window.alert('Lista salva com sucesso!');
     } else {
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
-      window.location.reload();
+      //window.location.reload();
       window.alert('Lista salva com sucesso!');
     };
     //---------------------//
@@ -96,11 +110,14 @@ export class ShoppingCartService {
           savedItens.splice(i, 1)
         }
       };
-      console.log(shoppingCartList);
-      for (let item of shoppingCartList) {
-        cartList.push(item)
-      };
+      const cacheLocalStorage = localStorage.getItem('cacheShoppingCart');
+      const cache: Array<ShoppingCart> = JSON.parse(cacheLocalStorage);
       for (let item of savedItens) {
+        if (item.nameList !== shoppingCartList[0].nameList) {
+          cartList.push(item)
+        }
+      }
+      for (let item of cache) {
         cartList.push(item)
       };
       localStorage.removeItem('savedItens');
