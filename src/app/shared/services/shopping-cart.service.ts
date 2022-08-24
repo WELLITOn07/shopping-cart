@@ -71,6 +71,7 @@ export class ShoppingCartService {
       localStorage.setItem('savedItens', JSON.stringify(saved));
     };
     checkboxList = [];
+    window.location.reload();
   };
 
   saveShoppingCartList(shoppingCartList: Array<ShoppingCart>) {

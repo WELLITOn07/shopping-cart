@@ -138,6 +138,7 @@ export class ShoppingCartComponent implements OnInit {
     } else {
       this.showSelectList = false;
     };
+    window.location.reload();
   };
 
   selectNameList: string = '';
@@ -310,7 +311,7 @@ export class ShoppingCartComponent implements OnInit {
 
       // const shopping: Array<ShoppingCart> = [
       //   {id: 100,
-      // nameList: 'CONDOR',
+      // nameList: 'TESTE',
       // dateList: dateToday,
       // cart: {
       //   nameItem: 'teste',
