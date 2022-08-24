@@ -66,6 +66,7 @@ export class FinancialControlComponent implements OnInit {
     let month = String(list.dateList);
     month = month.slice(5, 7);
     this.monthOneList = month;
+    console.log(this.monthOneList);
   };
 
   monthTwoList: string = '';
@@ -73,5 +74,6 @@ export class FinancialControlComponent implements OnInit {
     let month = String(list.dateList);
     month = month.slice(5, 7);
     this.monthTwoList = month;
+    console.log(this.monthTwoList);
  };
 }; //end

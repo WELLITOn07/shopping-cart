@@ -1,5 +1,6 @@
 import { Injectable, LOCALE_ID } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { NamesList } from '../models/savedLists.model';
 import { ShoppingCart } from '../models/shoppingCart.model';
 
@@ -7,8 +8,7 @@ import { ShoppingCart } from '../models/shoppingCart.model';
   providedIn: 'root'
 })
 export class ShoppingCartService {
-
-  shoppingCartList: Array<ShoppingCart> = [];
+  shoppingCartList: Array<ShoppingCart> = []
   checkboxList: Array<number> = [];
 
   constructor(private router: Router) { }
@@ -43,6 +43,7 @@ export class ShoppingCartService {
         }
       });
       localStorage.setItem('savedItens', JSON.stringify(saved));
+      window.location.reload();
       window.alert('Removido com sucesso!')
     };
 
@@ -75,6 +76,7 @@ export class ShoppingCartService {
   };
 
   saveShoppingCartList(shoppingCartList: Array<ShoppingCart>) {
+    const cartList: Array<ShoppingCart> = [];
     const namesList: Array<NamesList> = [];
     const savedListsLS = localStorage.getItem('savedShoppingCart');
     if (savedListsLS) {
@@ -91,43 +93,34 @@ export class ShoppingCartService {
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
       localStorage.removeItem('savedShoppingCart');
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
-      //window.location.reload();
+
+      const itemLS = localStorage.getItem('savedItens');
+      const saved: Array<ShoppingCart> = JSON.parse(itemLS);
+      saved.forEach(item => {
+        if (item.nameList === shoppingCartList[0].nameList) {
+          let i: number = saved.indexOf(item);
+          saved.splice(i, 1);
+        } else {
+          cartList.push(item)
+        }
+      });
+      shoppingCartList.forEach(item => {
+        cartList.push(item)
+      });
+      localStorage.removeItem('savedItens');
+      localStorage.setItem('savedItens', JSON.stringify(cartList))
+      window.location.reload();
       window.alert('Lista salva com sucesso!');
     } else {
       namesList.push({ nameList: shoppingCartList[0].nameList, dateList: shoppingCartList[0].dateList });
       localStorage.setItem('savedShoppingCart', JSON.stringify(namesList));
-      //window.location.reload();
-      window.alert('Lista salva com sucesso!');
-    };
-    //---------------------//
-    const cartList: Array<ShoppingCart> = [];
-    const savedItensLS = localStorage.getItem('savedItens');
-    if (savedItensLS) {
-      const savedItens: Array<ShoppingCart> = JSON.parse(savedItensLS);
-      for (let item of savedItens) {
-        if (item.nameList === shoppingCartList[0].nameList) {
-          let i = savedItens.indexOf(item);
-          savedItens.splice(i, 1)
-        }
-      };
-      const cacheLocalStorage = localStorage.getItem('cacheShoppingCart');
-      const cache: Array<ShoppingCart> = JSON.parse(cacheLocalStorage);
-      for (let item of savedItens) {
-        if (item.nameList !== shoppingCartList[0].nameList) {
-          cartList.push(item)
-        }
-      }
-      for (let item of cache) {
-        cartList.push(item)
-      };
-      localStorage.removeItem('savedItens');
-      localStorage.setItem('savedItens', JSON.stringify(cartList));
-    } else {
-      for (let item of shoppingCartList) {
-        cartList.push(item)
-      }
-      localStorage.setItem('savedItens', JSON.stringify(cartList));
-    };
-  };
 
+      shoppingCartList.forEach(item => {
+        cartList.push(item)
+      });
+      localStorage.setItem('savedItens', JSON.stringify(cartList))
+      window.location.reload();
+      window.alert('Lista salva com sucesso!');
+    }
+  };
 }; //end

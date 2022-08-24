@@ -69,7 +69,7 @@
         </tr>
         <tr *ngIf="finalResult && totalValueOneList !== totalValueTwoList">
         <th>MÊS COM MAIOR GASTO</th>
-          <td style="color: rgba(165, 28, 28, 0.911);">{{ totalValueOneList >  totalValueTwoList ?  oneShoppingCartItens[0].dateList : oneShoppingCartItens[0].dateList | date: 'MM/Y'}}</td>
+          <td style="color: rgba(165, 28, 28, 0.911);">{{ totalValueOneList >  totalValueTwoList ?  monthOneList : monthTwoList}}</td>
         </tr>
         <tr *ngIf="finalResult && totalValueOneList === totalValueTwoList">
           <th>MÊS COM MAIOR GASTO</th>

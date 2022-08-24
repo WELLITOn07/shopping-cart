@@ -164,9 +164,11 @@ export class ShoppingCartComponent implements OnInit {
     const selectList: Array<ShoppingCart> = JSON.parse(selectListLocalStorage);
 
     if (selectList) {
-      selectList.forEach(tag => {
-        this.theTagUrlSelect = tag.cart.tag;
-        this.nameListCache = tag.nameList;
+      selectList.forEach(item => {
+        if (item.nameList === this.selectNameList) {
+          this.theTagUrlSelect = item.cart.tag;
+          this.nameListCache = item.nameList;
+        }
       });
       for (let item of selectList) {
         if (item.nameList === this.selectNameList) {
@@ -245,11 +247,10 @@ export class ShoppingCartComponent implements OnInit {
     const amount = Number(this.createItensForm.value.amountItem);
     const dateToday = new Date();
     const date: Date = dateToday;
-    const savedItens = localStorage.getItem('savedItens');
-    if (savedItens) {
-      this.shoppingCartItens.forEach(item => {
-        this.id = item.id++;
-      });
+    const cacheLocalStorage = localStorage.getItem('cacheShoppingCart');
+    const cache: Array<ShoppingCart> = JSON.parse(cacheLocalStorage);
+    if (cache) {
+      this.id = cache.length++;
     } else {
       if (this.shoppingCartItens.length > 0) {
         this.shoppingCartItens.forEach(item => {
@@ -302,6 +303,23 @@ export class ShoppingCartComponent implements OnInit {
       this.showButtonEditList = true;
       this.showSelectList = false;
       this.shoppingCartService.saveShoppingCartList(this.shoppingCartService.shoppingCartList);
+
+
+      //--- ITEM P/ TESTE --//
+      // const dateToday = new Date('2022-01-24T21:19:55.782Z');
+
+      // const shopping: Array<ShoppingCart> = [
+      //   {id: 100,
+      // nameList: 'CONDOR',
+      // dateList: dateToday,
+      // cart: {
+      //   nameItem: 'teste',
+      //   valueItem: 10,
+      //   amountItem: 50,
+      //   tag: 'null',
+      // }}
+      // ];
+      // this.shoppingCartService.saveShoppingCartList(shopping);
     }
   };
 
