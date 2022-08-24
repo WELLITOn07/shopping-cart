@@ -305,20 +305,20 @@ export class ShoppingCartComponent implements OnInit {
 
 
       //--- ITEM P/ TESTE --//
-      // const dateToday = new Date('2022-01-24T21:19:55.782Z');
+      const dateToday = new Date('2022-01-24T21:19:55.782Z');
 
-      // const shopping: Array<ShoppingCart> = [
-      //   {id: 100,
-      // nameList: 'TESTE',
-      // dateList: dateToday,
-      // cart: {
-      //   nameItem: 'teste',
-      //   valueItem: 10,
-      //   amountItem: 50,
-      //   tag: 'null',
-      // }}
-      // ];
-      // this.shoppingCartService.saveShoppingCartList(shopping);
+      const shopping: Array<ShoppingCart> = [
+        {id: 100,
+      nameList: 'LISTA TESTE',
+      dateList: dateToday,
+      cart: {
+        nameItem: 'teste',
+        valueItem: 10,
+        amountItem: 50,
+        tag: 'null',
+      }}
+      ];
+      this.shoppingCartService.saveShoppingCartList(shopping);
     }
   };
 
