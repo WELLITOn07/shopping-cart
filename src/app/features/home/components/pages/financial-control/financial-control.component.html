@@ -58,14 +58,19 @@
       <tr>
         <th colspan="2"><button (click)="applyList()" *ngIf="monthOneList && monthTwoList">AVALIAR</button></th>
       </tr>
+
       <tr *ngIf="finalResult">
-        <th colspan="2">RESUMO FINAL</th>
+        <th>Mês {{ monthOneList }}</th>
+        <th>Mês {{ monthTwoList }}</th>
       </tr>
       <tr *ngIf="finalResult">
         <!---------------- ONE LIST ---------------->
-          <td>Total {{ totalValueOneList  | currency: 'R$'}}</td>
+          <td>Total {{ totalValueOneList  | currency: 'R$'}} </td>
         <!---------------- TWO LIST ---------------->
           <td>Total {{ totalValueTwoList | currency: 'R$'}}</td>
+        </tr>
+        <tr>
+          <th class="historic" colspan="2" style="color: aliceblue;">RESUMO FINAL</th>
         </tr>
         <tr *ngIf="finalResult && totalValueOneList !== totalValueTwoList">
         <th>MÊS COM MAIOR GASTO</th>

@@ -87,10 +87,12 @@ body {
   .table-tfoot th {
     border: 1px solid #1d2c4df1;
     text-align: center;
-    background-color: #fca311;
     color: #1d2c4df1;
     font-family: 'Bree Serif', serif;
   };
+  .end {
+    color: aliceblue;
+  }
   .table-tfoot td {
     border: 1px solid #1d2c4df1;
     text-align: center;

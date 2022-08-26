@@ -203,24 +203,17 @@ export class ShoppingCartComponent implements OnInit {
 
     const cartList: Array<ShoppingCart> = [];
     const savedItensLS = localStorage.getItem('savedItens');
-    const cacheLocalStorage = localStorage.getItem('cacheShoppingCart');
-    const cache: Array<ShoppingCart> = JSON.parse(cacheLocalStorage);
     if (savedItensLS) {
       const savedItens: Array<ShoppingCart> = JSON.parse(savedItensLS);
-      savedItens.forEach(item => {
-        if (item.nameList === this.selectNameList) {
-          let i = savedItens.indexOf(item)
-          savedItens.splice(i, 1);
-          localStorage.removeItem('cacheShoppingCart');
-        }
-      });
       for (let item of savedItens) {
-        cartList.push(item);
+        if (item.nameList !== this.selectNameList) {
+          cartList.push(item);
+        }
       };
       localStorage.removeItem('savedItens');
       localStorage.setItem('savedItens', JSON.stringify(cartList));
     };
-
+    localStorage.removeItem('cacheShoppingCart');
     this.shoppingCartItens = [];
     window.location.reload();
   };
@@ -316,20 +309,20 @@ export class ShoppingCartComponent implements OnInit {
 
 
       //--- ITEM P/ TESTE --//
-      // const dateToday = new Date('2022-01-24T21:19:55.782Z');
+      const dateToday = new Date('2022-01-24T21:19:55.782Z');
 
-      // const shopping: Array<ShoppingCart> = [
-      //   {id: 100,
-      // nameList: 'LISTA TESTE',
-      // dateList: dateToday,
-      // cart: {
-      //   nameItem: 'teste',
-      //   valueItem: 10,
-      //   amountItem: 50,
-      //   tag: 'null',
-      // }}
-      // ];
-      // this.shoppingCartService.saveShoppingCartList(shopping);
+      const shopping: Array<ShoppingCart> = [
+        {id: 100,
+      nameList: 'LISTA TESTE',
+      dateList: dateToday,
+      cart: {
+        nameItem: 'teste',
+        valueItem: 10,
+        amountItem: 50,
+        tag: 'null',
+      }}
+      ];
+      this.shoppingCartService.saveShoppingCartList(shopping);
     }
   };
 
