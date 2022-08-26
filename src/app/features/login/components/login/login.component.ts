@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/shared/services/login.service';
@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private router: Router, private loginService: LoginService) { }
+
+  hide: boolean = true;
 
   ngOnInit(): void {
   }

@@ -18,6 +18,8 @@ export class UserRegistrationComponent implements OnInit {
 
   constructor(private router: Router, private loginService: LoginService) { }
 
+  hide: boolean = true;
+
   ngOnInit(): void {
   }
 

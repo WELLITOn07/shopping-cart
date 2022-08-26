@@ -7,7 +7,8 @@
   <input type="text" placeholder="Nome do usuário" class="input username" formControlName="username">
   <!------------------------------------------------------------------->
   <label for="input password" class="label password"><img src="https://img.icons8.com/plumpy/24/000000/password.png"/>Password</label>
-  <input type="password" class="input password" placeholder="Senha" formControlName="password">
+  <input type="password" class="input inputPassword" placeholder="Senha" formControlName="password" [type]="hide ? 'password' : 'text' ">
+  <label for="input password" id="showPassword"><img src="https://img.icons8.com/windows/32/000000/show-password.png"(click)="hide = !hide"></label>
   <!-------------------------------------------------------------------->
   <button (click)="register()" type="submit"[disabled]="userRegisterForm.invalid" [ngClass]="{'register-button': !userRegisterForm.invalid, 'noRegistered': userRegisterForm.invalid}">{{userRegisterForm.invalid ? 'Preencha todos os campos' : 'Cadastrar' }}</button>
   <p class="text-register" (click)="navegateLogin('login')">Já tenho uma conta</p>

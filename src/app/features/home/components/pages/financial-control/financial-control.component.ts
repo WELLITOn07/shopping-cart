@@ -32,6 +32,8 @@ export class FinancialControlComponent implements OnInit {
   };
   //----- FUNÇÃO P/ PEGAR ITENS SALVOS -----//
   applyList() {
+    this.totalValueOneList = 0;
+    this.totalValueTwoList = 0;
     this.finalResult = true;
     this.oneShoppingCartItens = [];
     this.twoShoppingCartItens = [];

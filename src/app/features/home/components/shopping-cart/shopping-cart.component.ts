@@ -72,11 +72,12 @@ export class ShoppingCartComponent implements OnInit {
 
     //ITENS DA LOCAL STORAGE//
     const cacheShoppingCart = localStorage.getItem('cacheShoppingCart');
-    if (cacheShoppingCart && this.shoppingCartItens.length === 0) {
+    const cache: Array<ShoppingCart> = JSON.parse(cacheShoppingCart)
+    if (cacheShoppingCart && cache.length > 0 && this.shoppingCartItens.length === 0) {
       this.showTableNameAndTag = true;
       this.showButtonCreateList = false;
       this.showButtonEditList = true;
-      this.showInputsAddItens = true;
+      this.iconShowInputsAddItem = true;
       this.showTable = true;
       const shoppingCart: Array<ShoppingCart> = JSON.parse(cacheShoppingCart)
       for (let itens of shoppingCart) {
@@ -149,39 +150,44 @@ export class ShoppingCartComponent implements OnInit {
 
   //----- FUNÇÃO MOSTRAR LISTA -----//
   fnShowSelectedList() {
-    if (!this.selectNameList) {
-      window.alert('Nenhuma lista selecionada!')
+    if (this.shoppingCartItens.length > 0) {
+      window.alert('Esvazie o carrinho primeiro!')
     } else {
-      this.showTable = true;
-    this.showTableNameAndTag = true;
-    this.showAddLista = false;
-    this.showTags = false;
-    this.showInputsAddItens = false;
-    this.iconShowInputsAddItem = true;
-    this.showButtonCreateList = false;
-    this.showButtonEditList = true;
-    const selectListLocalStorage = localStorage.getItem('savedItens');
-    const selectList: Array<ShoppingCart> = JSON.parse(selectListLocalStorage);
+      if (!this.selectNameList) {
+        window.alert('Nenhuma lista selecionada!')
+      } else {
+        this.showTable = true;
+      this.showTableNameAndTag = true;
+      this.showAddLista = false;
+      this.showTags = false;
+      this.showInputsAddItens = false;
+      this.iconShowInputsAddItem = true;
+      this.showButtonCreateList = false;
+      this.showButtonEditList = true;
+      const selectListLocalStorage = localStorage.getItem('savedItens');
+      const selectList: Array<ShoppingCart> = JSON.parse(selectListLocalStorage);
 
-    if (selectList) {
-      selectList.forEach(item => {
-        if (item.nameList === this.selectNameList) {
-          this.theTagUrlSelect = item.cart.tag;
-          this.nameListCache = item.nameList;
+      if (selectList) {
+        selectList.forEach(item => {
+          if (item.nameList === this.selectNameList) {
+            this.theTagUrlSelect = item.cart.tag;
+            this.nameListCache = item.nameList;
+          }
+        });
+        for (let item of selectList) {
+          if (item.nameList === this.selectNameList) {
+            this.shoppingCartService.shoppingCartList.push(item);
+          }
         }
-      });
-      for (let item of selectList) {
-        if (item.nameList === this.selectNameList) {
-          this.shoppingCartService.shoppingCartList.push(item);
-        }
+      };
+      this.attValueAndMount();
       }
-    };
-    this.attValueAndMount();
     }
   };
   //FUNÇAO P/ DELETAR LISTA SELECIONADA
   deleteSelectedList() {
     this.showSelectList = false;
+    this.showTable = false;
     const savedLists = localStorage.getItem('savedShoppingCart');
     const lists: Array<NamesList> = JSON.parse(savedLists)
     if (lists) {
@@ -194,6 +200,7 @@ export class ShoppingCartComponent implements OnInit {
       localStorage.removeItem('savedShoppingCart');
       localStorage.setItem('savedShoppingCart', JSON.stringify(lists))
     };
+
     const cartList: Array<ShoppingCart> = [];
     const savedItensLS = localStorage.getItem('savedItens');
     const cacheLocalStorage = localStorage.getItem('cacheShoppingCart');
@@ -201,22 +208,23 @@ export class ShoppingCartComponent implements OnInit {
     if (savedItensLS) {
       const savedItens: Array<ShoppingCart> = JSON.parse(savedItensLS);
       savedItens.forEach(item => {
-        if (item.nameList === this.selectNameList || item.nameList === cache[0].nameList) {
+        if (item.nameList === this.selectNameList) {
           let i = savedItens.indexOf(item)
           savedItens.splice(i, 1);
           localStorage.removeItem('cacheShoppingCart');
         }
       });
       for (let item of savedItens) {
-        cartList.push(item)
+        cartList.push(item);
       };
       localStorage.removeItem('savedItens');
       localStorage.setItem('savedItens', JSON.stringify(cartList));
     };
-    localStorage.removeItem('cacheShoppingCart');
+
     this.shoppingCartItens = [];
-    window.alert('Removido com sucesso!')
-  }
+    window.location.reload();
+  };
+
   fnshowTags() {
     if (this.showTags === false) {
       this.showTags = true;
@@ -279,6 +287,9 @@ export class ShoppingCartComponent implements OnInit {
       this.attValueAndMount();
     }
     //----------------------//
+    if (this.shoppingCartItens.length === 0) {
+      window.location.reload();
+    }
     this.createItensForm.reset();
     this.iconShowInputsAddItem = true;
     this.showInputsAddItens = false;
@@ -305,20 +316,20 @@ export class ShoppingCartComponent implements OnInit {
 
 
       //--- ITEM P/ TESTE --//
-      const dateToday = new Date('2022-01-24T21:19:55.782Z');
+      // const dateToday = new Date('2022-01-24T21:19:55.782Z');
 
-      const shopping: Array<ShoppingCart> = [
-        {id: 100,
-      nameList: 'LISTA TESTE',
-      dateList: dateToday,
-      cart: {
-        nameItem: 'teste',
-        valueItem: 10,
-        amountItem: 50,
-        tag: 'null',
-      }}
-      ];
-      this.shoppingCartService.saveShoppingCartList(shopping);
+      // const shopping: Array<ShoppingCart> = [
+      //   {id: 100,
+      // nameList: 'LISTA TESTE',
+      // dateList: dateToday,
+      // cart: {
+      //   nameItem: 'teste',
+      //   valueItem: 10,
+      //   amountItem: 50,
+      //   tag: 'null',
+      // }}
+      // ];
+      // this.shoppingCartService.saveShoppingCartList(shopping);
     }
   };
 
@@ -337,6 +348,7 @@ export class ShoppingCartComponent implements OnInit {
     let clearLocalStorage = localStorage.removeItem('cacheShoppingCart');
     this.shoppingCartItens = [];
     this.shoppingCartService.shoppingCartList = [];
+    window.location.reload();
     window.alert('Lista removida com sucesso!');
   };
 

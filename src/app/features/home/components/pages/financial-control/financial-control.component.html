@@ -32,7 +32,7 @@
         <th colspan="2" class="historic">HISTÓRICO</th>
       </tr>
       <tr>
-        <th colspan="2">Primeiro mês</th>
+        <th colspan="2">Mês: {{ monthOneList }}</th>
       </tr>
       <tr *ngFor="let list of oneShoppingCartItens" >
       <!---------------- ONE LIST ---------------->
@@ -41,7 +41,7 @@
         </td>
       </tr>
       <tr>
-        <th colspan="2">Segundo mês</th>
+        <th colspan="2">Mês: {{ monthTwoList }}</th>
       </tr>
       <tr *ngFor="let list of twoShoppingCartItens">
       <!---------------- two LIST ---------------->
@@ -78,7 +78,7 @@
 
         <tr *ngIf="finalResult">
           <th>DIFERENÇA</th>
-          <td style="color: rgba(165, 28, 28, 0.911);"> {{ difference }}</td>
+          <td style="color: rgba(165, 28, 28, 0.911);"> {{ difference | currency: 'R$'}}</td>
         </tr>
     </tfoot>
   </table>
