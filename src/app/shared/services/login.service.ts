@@ -15,7 +15,7 @@ export class LoginService {
     if (users) {
       for (let search of users) {
         if (search.username === username && search.passsword === password) {
-          const userLogin = sessionStorage.setItem('userLogin', username);
+          sessionStorage.setItem('userLogin', username);
           this.router.navigateByUrl('home');
         } else {
           return window.alert('Usuário ou senha inválida!')

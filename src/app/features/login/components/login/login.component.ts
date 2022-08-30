@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
@@ -11,8 +12,8 @@ import { LoginService } from 'src/app/shared/services/login.service';
 export class LoginComponent implements OnInit {
 
   userLoginForm = new FormGroup ({
-    username: new FormControl ('', { nonNullable: true, validators: [Validators.required]}),
-    password: new FormControl ('', { nonNullable: true, validators: [Validators.required]})
+    username: new FormControl ('', { nonNullable: true,}),
+    password: new FormControl ('', { nonNullable: true,})
   });
 
   constructor(private router: Router, private loginService: LoginService) { }
@@ -23,9 +24,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const username = this.userLoginForm.value.username;
-    const password = this.userLoginForm.value.password;
-    this.loginService.login(username, password);
+    const obs = new Observable (subscriber => {
+      const username = this.userLoginForm.value.username;
+      const password = this.userLoginForm.value.password;
+      if (username && password) {
+        subscriber.next(this.loginService.login(username, password))
+        subscriber.complete();
+      } else {
+        subscriber.error(window.alert('Preencha os dados!'))
+      }
+    })
+    obs.subscribe();
   };
 
   navegateRegister (url: string) {

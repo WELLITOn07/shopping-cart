@@ -9,6 +9,6 @@
   <!-------------------------------------------------------------------->
   <button (click)="login()" type="submit"[disabled]="userLoginForm.invalid" [ngClass]="{'login-button': !userLoginForm.invalid, 'noRegistered': userLoginForm.invalid}">{{userLoginForm.invalid ? 'Preencha todos os campos' : 'Entrar' }}</button>
   <p class="text-register" (click)="navegateRegister('register')">Cadastre-se </p>
-  <p><img src="https://img.icons8.com/android/24/000000/add-user-male.png"/></p>
+  <p><img src="https://img.icons8.com/android/24/000000/add-user-male.png"></p>
 </form>
 <app-footer></app-footer>
